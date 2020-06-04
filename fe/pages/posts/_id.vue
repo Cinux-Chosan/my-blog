@@ -1,6 +1,8 @@
 <template>
   <v-layout>
-    <v-flex class="text-center"> {{ title }}{{ content }} </v-flex>
+    <v-flex class="text-center">
+      <viewer :initialValue="content"/>
+    </v-flex>
   </v-layout>
 </template>
 

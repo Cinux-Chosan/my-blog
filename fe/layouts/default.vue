@@ -23,6 +23,6 @@ export default {
 
 <style scoped>
 .blogContent {
-  width: 1170px;
+  width: 1180px;
 }
 </style>
