@@ -41,7 +41,7 @@ export default Vue.extend({
     getPost() {
       return this.$refs.editor.invoke('getMarkdown')
     },
-    save() {
+    async save() {
       const { title, getPost, $route, $axios } = this
       const { id = '' } = $route.params
       const result = await $axios.$post(`posts/${id}`, {
