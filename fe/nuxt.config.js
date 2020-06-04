@@ -1,4 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
+import globalConfig from '../global.config'
+
+const { serverUrl, serverPort, serverPrefix } = globalConfig
 
 export default {
   mode: 'universal',
@@ -30,7 +33,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/toastUi', ssr: false }],
+  plugins: [{ src: '~/plugins/toastUi.client', ssr: false, mode: 'client' }],
   /*
    ** Nuxt.js dev-modules
    */
@@ -41,7 +44,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa',
+    // '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv'
   ],
@@ -49,7 +52,19 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    proxy: true,
+    prefix: serverPrefix,
+    port: serverPort,
+    headers: {
+      post: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    }
+  },
+  proxy: {
+    [serverPrefix]: `${serverUrl}:${serverPort}`
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
