@@ -14,6 +14,11 @@ export class Post extends Document {
 
   @Prop({ type: [String] })
   tags: string[];
+
+  @Prop({
+    default: Date.now()
+  })
+  createTime: Date;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);

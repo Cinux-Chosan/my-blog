@@ -1,14 +1,16 @@
 <template>
   <v-layout>
     <v-flex class="text-center">
-      <blockquote class="blockquote motto">
-        {{ motto }}
-        <footer>
-          <small>
-            <em>{{ author }}</em>
-          </small>
-        </footer>
-      </blockquote>
+      <nuxt-link to="/posts" class="noDecoration">
+        <blockquote class="blockquote motto">
+          {{ motto }}
+          <footer>
+            <small>
+              <em>{{ author }}</em>
+            </small>
+          </footer>
+        </blockquote>
+      </nuxt-link>
     </v-flex>
   </v-layout>
 </template>
@@ -17,6 +19,8 @@
 import Vue from 'vue'
 
 export default Vue.extend({
+  layout: 'home',
+
   data() {
     return {
       motto: '',
@@ -50,5 +54,6 @@ export default Vue.extend({
 <style scoped>
 .motto {
   margin-top: 180px;
+  color: #fff;
 }
 </style>

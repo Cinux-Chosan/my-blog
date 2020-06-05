@@ -1,8 +1,11 @@
-.bannerBlock {
-  position: absolute;
-  height: 400px;
-  top: -400px;
-  width: 100%;
+
+.blogContainer {
+  width: 1180px;
+  margin: auto;
+}
+
+.noDecoration {
+  text-decoration: none !important;
 }
 
 // * 河白色 #FFFFFF rgb(255, 255, 255)

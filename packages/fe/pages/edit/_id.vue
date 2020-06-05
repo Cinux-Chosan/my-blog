@@ -4,12 +4,7 @@
       <v-text-field label="输入标题" v-model="title"></v-text-field>
     </v-flex>
     <v-flex>
-      <editor
-        ref="editor"
-        height="auto"
-        :options="editorOptions"
-        :initialValue="content"
-      />
+      <editor ref="editor" height="auto" :options="editorOptions" :initialValue="content" />
     </v-flex>
     <dial @save="save" />
   </v-layout>
@@ -18,6 +13,7 @@
 <script>
 import Vue from 'vue'
 import Dial from '@/components/Dial'
+// import colorSyntax from '@toast-ui/editor-plugin-color-syntax'
 
 export default Vue.extend({
   components: { Dial },
@@ -25,15 +21,17 @@ export default Vue.extend({
   async asyncData({ params, app }) {
     const { id } = params
     if (id) {
-      const post = await app.$axios.$get(`/posts/${id}`)
+      const [post] = await app.$axios.$get(`/posts/${id}`)
       return post
     }
   },
 
   data() {
+    const { editorOptions } = Vue
     return {
       editorOptions: {
-        minHeight: '500px'
+        minHeight: '500px',
+        ...editorOptions
       },
       title: '',
       content: ''
@@ -55,10 +53,3 @@ export default Vue.extend({
   }
 })
 </script>
-
-<style scoped>
-.contentBg {
-  /* 青草绿 #E3EDCD rgb(227, 237, 205) */
-  background-color: #e3edcd;
-}
-</style>

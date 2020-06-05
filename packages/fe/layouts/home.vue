@@ -22,5 +22,8 @@ export default {
 </script>
 
 <style scoped>
-
+.blogContent {
+  background: #000;
+  color: #fff;
+}
 </style>
