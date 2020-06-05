@@ -1,0 +1,12 @@
+{
+  "name": "my-blog",
+  "version": "1.0.0",
+  "description": "chosan's personal blog",
+  "repository": "git@github.com:Cinux-Chosan/my-blog.git",
+  "author": "chosan",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}

@@ -1,8 +1,7 @@
 <template>
   <v-layout>
-    <v-flex class="text-center">
-      <viewer :initialValue="content"/>
-    </v-flex>
+    <div class="bannerBlock">{{ title }}</div>
+    <v-flex class="text-center">{{ content }}</v-flex>
   </v-layout>
 </template>
 
@@ -28,3 +27,10 @@ export default Vue.extend({
   }
 })
 </script>
+
+
+<style scoped>
+.bannerBlock {
+  font-size: 55px;
+}
+</style>

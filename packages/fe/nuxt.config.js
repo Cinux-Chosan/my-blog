@@ -1,5 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
-import globalConfig from '../global.config'
+import globalConfig from '../../global.config'
 
 const { serverUrl, serverPort, serverPrefix } = globalConfig
 
@@ -62,6 +62,7 @@ export default {
       }
     }
   },
+  
   proxy: {
     [serverPrefix]: `${serverUrl}:${serverPort}`
   },

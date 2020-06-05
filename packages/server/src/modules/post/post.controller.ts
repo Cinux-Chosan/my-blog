@@ -5,9 +5,9 @@ import { CreatePostDto, UpdatePostDto } from './dto/create-post-dto';
 @Controller('posts')
 export class PostController {
   constructor(private postService: PostService) {}
-  @Get(':id')
+  @Get(':id?')
   async getPostById(@Param('id') id: string) {
-    return await this.postService.findOne(id);
+    return await this.postService.find(id);
   }
 
   @Post(':id?')

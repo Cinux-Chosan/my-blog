@@ -13,10 +13,9 @@ export class PostService {
     return createdPost.save();
   }
   async update(id: string, postDto: UpdatePostDto) {
-      console.log(postDto)
     return this.postModel.updateOne({ _id: id }, postDto);
   }
-  async findOne(id: string) {
-    return this.postModel.findById(id);
+  async find(id: string) {
+    return this.postModel.find(id ? { _id: id } : {});
   }
 }

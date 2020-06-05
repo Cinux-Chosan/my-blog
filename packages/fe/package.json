@@ -1,9 +1,8 @@
 {
-  "name": "my-blog",
+  "name": "fe",
   "version": "1.0.0",
   "description": "Chosan's personal blog",
   "author": "chosan",
-  "private": true,
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",

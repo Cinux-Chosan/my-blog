@@ -1,15 +1,18 @@
 <template>
-  <div>
-    <v-text-field label="输入标题" v-model="title"></v-text-field>
-
-    <editor
-      ref="editor"
-      height="auto"
-      :options="editorOptions"
-      :initialValue="content"
-    />
+  <v-layout flex-column class="contentBg">
+    <v-flex>
+      <v-text-field label="输入标题" v-model="title"></v-text-field>
+    </v-flex>
+    <v-flex>
+      <editor
+        ref="editor"
+        height="auto"
+        :options="editorOptions"
+        :initialValue="content"
+      />
+    </v-flex>
     <dial @save="save" />
-  </div>
+  </v-layout>
 </template>
 
 <script>
@@ -52,3 +55,10 @@ export default Vue.extend({
   }
 })
 </script>
+
+<style scoped>
+.contentBg {
+  /* 青草绿 #E3EDCD rgb(227, 237, 205) */
+  background-color: #e3edcd;
+}
+</style>
