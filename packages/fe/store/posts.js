@@ -5,10 +5,9 @@ export const state = () => {
 }
 
 export const mutations = {
-  SAVE_POST(state, post) {
-    state.posts[post._id] = post
-  },
-  SAVE_POSTS(state, posts) {
+  SAVE_POSTS(state, postList) {
+    const posts = {}
+    postList.forEach(post => (posts[post._id] = post))
     state.posts = posts
   }
 }

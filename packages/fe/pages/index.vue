@@ -1,6 +1,6 @@
 <template>
-  <v-layout>
-    <v-flex class="text-center">
+  <v-row>
+    <v-col class="text-center">
       <nuxt-link to="/posts" class="noDecoration">
         <blockquote class="blockquote motto">
           {{ motto }}
@@ -11,8 +11,8 @@
           </footer>
         </blockquote>
       </nuxt-link>
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

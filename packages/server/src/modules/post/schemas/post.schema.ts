@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { postStatus } from '../dto/create-post-dto'
-
+import { TagSchema } from '../../tags/schemas/tag.schema'
+import { CreateTagDto } from '../../tags/dto/create-tag-dto'
 @Schema()
 export class Post extends Document {
   @Prop({ default: 'Chosan' })
@@ -13,8 +14,11 @@ export class Post extends Document {
   @Prop({ required: true })
   content: string;
 
-  @Prop({ type: [String] })
-  tags: string[];
+  @Prop()
+  html: string;
+
+  @Prop({ type: [TagSchema] })
+  tags: CreateTagDto[];
 
   @Prop({
     default: Date.now()

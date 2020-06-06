@@ -1,19 +1,24 @@
+import { CreateTagDto } from '../../tags/dto/create-tag-dto'
+
 export enum postStatus {
   deleted,
   activated
 }
 
 export class CreatePostDto {
-  author: string
   title: string
   content: string
-  tags?: string[]
+  html: string
+  author: string
   status: postStatus
+  tags?: CreateTagDto[]
 }
 
 export class UpdatePostDto {
   title: string
   content: string
-  tags?: string[]
+  html: string
+  author?: string
   status?: postStatus
+  tags?: CreateTagDto[]
 }

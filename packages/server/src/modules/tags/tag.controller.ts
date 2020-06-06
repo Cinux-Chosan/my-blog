@@ -1,20 +1,25 @@
-import { Controller, Get, Post, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Delete } from '@nestjs/common';
 import { TagService } from './tag.service';
-import { CreateTagDto } from './dto/create-tag-dto';
 
 @Controller('tags')
 export class TagController {
-  constructor(private tagService: TagService) {}
-  @Get(':id?')
-  listTags(@Param('id') id: string) {
+  constructor(private tagService: TagService) { }
+  @Get(':text?')
+  async listTags(@Param('text') text: string) {
     const { tagService } = this;
-    return id ? tagService.find() : tagService.find({ _id: id });
+    const tags = await (text ? tagService.find({ text }) : tagService.find())
+    return tags;
   }
 
-  @Post(':id?')
-  async upsertTag(@Param('id') id: string, @Body() tag: CreateTagDto) {
+  @Post(':text?')
+  async upsertTag(@Param('text') text: string) {
     const { tagService } = this;
-    ({ _id: id } = await tagService.upsert({ _id: id }, tag));
-    return id;
+    return tagService.upsert({ text }, { text })
+  }
+
+  @Delete(':text')
+  async deleteTag(@Param('text') text: string) {
+    const { tagService } = this;
+    return tagService.del(text);
   }
 }

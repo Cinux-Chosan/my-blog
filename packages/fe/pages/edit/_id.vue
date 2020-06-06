@@ -1,33 +1,38 @@
 <template>
-  <v-layout flex-column class="contentBg">
-    <v-flex>
-      <v-text-field label="输入标题" v-model="post.title"></v-text-field>
-    </v-flex>
-    <v-flex>
+  <v-row class="contentBg flex-column">
+    <v-col class>
+      <v-text-field label="输入标题" v-model="post.title" hide-details />
+    </v-col>
+    <v-col>
       <editor ref="editor" height="auto" :options="editorOptions" :initialValue="post.content" />
-    </v-flex>
-    <v-flex>
-      <!-- <h6 class="caption mt-2">选择标签</h6> -->
-      <tag-creator class="mt-5" />
-    </v-flex>
+    </v-col>
+    <v-col>
+      <tag-selector @add="addTag" @del="delTag" :tags="tags" v-model="post.tags" />
+    </v-col>
     <dial @save="save" @del="del" />
-  </v-layout>
+  </v-row>
 </template>
 
 <script>
 import Vue from 'vue'
 import Dial from '@/components/DialEdit'
-import TagCreator from '@/components/TagCreateor'
-
+import TagSelector from '@/components/TagSelector'
+import { mapActions, mapState } from 'vuex'
 export default Vue.extend({
-  components: { Dial, TagCreator },
+  components: { Dial, TagSelector },
 
-  async asyncData({ params, app }) {
+  async asyncData({ params, $api, api, app }) {
+    console.log($api, api)
     const { id } = params
     if (id) {
       const [post = {}] = await app.$axios.$get(`/posts/${id}`)
       return { post }
     }
+  },
+
+  async fetch({ store, app }) {
+    const tags = await app.$axios.$get('/tags')
+    store.commit('tags/ADD_TAGS', tags)
   },
 
   data() {
@@ -40,12 +45,14 @@ export default Vue.extend({
       post: {
         tags: [],
         title: '',
-        content: ''
+        content: '',
+        html: ''
       }
     }
   },
 
   computed: {
+    ...mapState('tags', ['tags']),
     id() {
       const { id = '' } = this.$route.params
       return id
@@ -53,14 +60,19 @@ export default Vue.extend({
   },
 
   methods: {
+    ...mapActions('tags', ['addTag', 'delTag', 'getTags']),
     getPost() {
       return this.$refs.editor.invoke('getMarkdown')
     },
+    getHtml() {
+      return this.$refs.editor.invoke('getHtml')
+    },
     async save() {
-      const { post, getPost, id, $axios } = this
+      const { post, getPost, getHtml, id, $axios } = this
       const result = await $axios.$post(`posts/${id}`, {
         ...post,
-        content: getPost()
+        content: getPost(),
+        html: getHtml()
       })
     },
 

@@ -21,24 +21,22 @@ hljs.registerLanguage('javascript', javascript)
 hljs.registerLanguage('js', javascript)
 
 export default (ctx, inject) => {
-  if (!process.server) {
-    Vue.editorOptions = {
-      plugins: [
-        uml,
-        colorSyntax,
-        [chart, { minHeight: 200, width: 350 }],
-        [codeSyntaxHighlight, { hljs }]
-      ]
-    }
-    Vue.use({
-      install(Vue) {
-        Vue.mixin({
-          components: {
-            Editor,
-            Viewer
-          }
-        })
-      }
-    })
+  Vue.editorOptions = {
+    plugins: [
+      uml,
+      colorSyntax,
+      [chart, { minHeight: 200, width: 350 }],
+      [codeSyntaxHighlight, { hljs }]
+    ]
   }
+  Vue.use({
+    install(Vue) {
+      Vue.mixin({
+        components: {
+          Editor,
+          Viewer
+        }
+      })
+    }
+  })
 }

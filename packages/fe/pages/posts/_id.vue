@@ -1,9 +1,14 @@
 <template>
-  <v-layout>
-    <v-flex class="text-center">
-      <viewer :initialValue="content" :options="editorOptions"></viewer>
-    </v-flex>
-  </v-layout>
+  <v-row>
+    <v-col class="text-center">
+      <viewer :initialValue="post.content" :options="editorOptions">
+        <div class="d-none">
+          <!-- for SEO -->
+          <span v-html="post.html"></span>
+        </div>
+      </viewer>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -14,10 +19,7 @@ export default Vue.extend({
   layout: 'blog',
   data() {
     return {
-      title: '',
-      content: '',
-      tags: [],
-      author: '',
+      post: { title: '', content: '', html: '', tags: [], author: '' },
       editorOptions: Vue.editorOptions
     }
   },
@@ -29,8 +31,8 @@ export default Vue.extend({
         return state.posts.posts[id]
       } else {
         const [post] = await app.$axios.$get(`posts/${id}`)
-        store.commit('posts/SAVE_POST', post)
-        return post
+        store.commit('posts/SAVE_POSTS', [post])
+        return { post }
       }
     }
   },

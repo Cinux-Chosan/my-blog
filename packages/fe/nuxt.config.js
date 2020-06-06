@@ -33,7 +33,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~/plugins/toastUi.client', ssr: false, mode: 'client' }],
+  plugins: [
+    '~/plugins/axios',
+    { src: '~/plugins/toastUi.client', ssr: false, mode: 'client' }
+  ],
   /*
    ** Nuxt.js dev-modules
    */

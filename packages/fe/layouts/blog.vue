@@ -7,6 +7,7 @@
         Posted by {{activePost.author || 'Chosan'}} on
         {{mmt(activePost.createTime).format('LLLL')}}
       </h6>
+      <v-chip class="mx-2 my-6 tag" :data-tag="tag.text" v-for="tag in activePost.tags" :key="tag.text">{{tag.text}}</v-chip>
     </banner>
     <v-content class="blogContent">
       <v-container class="blogContainer">
@@ -32,7 +33,7 @@ export default {
     ...mapState('posts', ['posts']),
     activePost() {
       const { $route, posts } = this
-      return posts[$route.params.id]
+      return posts[$route.params.id] || {}
     }
   }
 }
