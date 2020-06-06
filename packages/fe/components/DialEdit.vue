@@ -6,7 +6,7 @@
       :bottom="bottom"
       :right="right"
       :left="left"
-      :direction="direction"
+      direction="top"
       :open-on-hover="hover"
       :transition="transition"
     >
@@ -22,7 +22,7 @@
       <v-btn fab dark small color="indigo">
         <v-icon>mdi-plus</v-icon>
       </v-btn>
-      <v-btn fab dark small color="red">
+      <v-btn fab dark small color="red" @click="$emit('del')">
         <v-icon>mdi-delete</v-icon>
       </v-btn>
     </v-speed-dial>
@@ -33,7 +33,6 @@
 export default {
   data() {
     return {
-      direction: 'top',
       fab: false,
       fling: false,
       hover: true,

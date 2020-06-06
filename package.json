@@ -6,6 +6,9 @@
   "author": "chosan",
   "license": "MIT",
   "private": true,
+  "dependencies": {
+    "core-js": "2.6.5"
+  },
   "workspaces": [
     "packages/*"
   ]

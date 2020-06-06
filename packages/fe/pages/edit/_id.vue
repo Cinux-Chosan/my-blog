@@ -1,28 +1,32 @@
 <template>
   <v-layout flex-column class="contentBg">
     <v-flex>
-      <v-text-field label="输入标题" v-model="title"></v-text-field>
+      <v-text-field label="输入标题" v-model="post.title"></v-text-field>
     </v-flex>
     <v-flex>
-      <editor ref="editor" height="auto" :options="editorOptions" :initialValue="content" />
+      <editor ref="editor" height="auto" :options="editorOptions" :initialValue="post.content" />
     </v-flex>
-    <dial @save="save" />
+    <v-flex>
+      <!-- <h6 class="caption mt-2">选择标签</h6> -->
+      <tag-creator class="mt-5" />
+    </v-flex>
+    <dial @save="save" @del="del" />
   </v-layout>
 </template>
 
 <script>
 import Vue from 'vue'
 import Dial from '@/components/DialEdit'
-// import colorSyntax from '@toast-ui/editor-plugin-color-syntax'
+import TagCreator from '@/components/TagCreateor'
 
 export default Vue.extend({
-  components: { Dial },
+  components: { Dial, TagCreator },
 
   async asyncData({ params, app }) {
     const { id } = params
     if (id) {
-      const [post] = await app.$axios.$get(`/posts/${id}`)
-      return post
+      const [post = {}] = await app.$axios.$get(`/posts/${id}`)
+      return { post }
     }
   },
 
@@ -33,8 +37,18 @@ export default Vue.extend({
         minHeight: '500px',
         ...editorOptions
       },
-      title: '',
-      content: ''
+      post: {
+        tags: [],
+        title: '',
+        content: ''
+      }
+    }
+  },
+
+  computed: {
+    id() {
+      const { id = '' } = this.$route.params
+      return id
     }
   },
 
@@ -43,12 +57,16 @@ export default Vue.extend({
       return this.$refs.editor.invoke('getMarkdown')
     },
     async save() {
-      const { title, getPost, $route, $axios } = this
-      const { id = '' } = $route.params
+      const { post, getPost, id, $axios } = this
       const result = await $axios.$post(`posts/${id}`, {
-        title,
+        ...post,
         content: getPost()
       })
+    },
+
+    async del() {
+      const { title, getPost, id, $axios } = this
+      const result = await $axios.$delete(`posts/${id}`)
     }
   }
 })
