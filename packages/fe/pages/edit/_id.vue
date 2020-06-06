@@ -12,7 +12,7 @@
 
 <script>
 import Vue from 'vue'
-import Dial from '@/components/Dial'
+import Dial from '@/components/DialEdit'
 // import colorSyntax from '@toast-ui/editor-plugin-color-syntax'
 
 export default Vue.extend({
