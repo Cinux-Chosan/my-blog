@@ -1522,6 +1522,27 @@
   dependencies:
     type-detect "4.0.8"
 
+"@toast-ui/editor-plugin-code-syntax-highlight@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/@toast-ui/editor-plugin-code-syntax-highlight/download/@toast-ui/editor-plugin-code-syntax-highlight-1.0.0.tgz#61898e4f721c63bb28f59e470804b8e62ef9cbe4"
+  integrity sha1-YYmOT3IcY7so9Z5HCAS45i75y+Q=
+  dependencies:
+    highlight.js "^9.18.1"
+
+"@toast-ui/editor-plugin-color-syntax@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/@toast-ui/editor-plugin-color-syntax/download/@toast-ui/editor-plugin-color-syntax-1.0.0.tgz#cd81221ade41901567dea55726c1bff20292396a"
+  integrity sha1-zYEiGt5BkBVn3qVXJsG/8gKSOWo=
+  dependencies:
+    tui-color-picker "^2.2.6"
+
+"@toast-ui/editor-plugin-uml@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/@toast-ui/editor-plugin-uml/download/@toast-ui/editor-plugin-uml-1.0.0.tgz#11182b3562ea0aa40059f4ff92a44decd789232a"
+  integrity sha1-ERgrNWLqCqQAWfT/kqRN7NeJIyo=
+  dependencies:
+    plantuml-encoder "^1.4.0"
+
 "@toast-ui/editor@^2.1.2":
   version "2.1.2"
   resolved "https://registry.npm.taobao.org/@toast-ui/editor/download/@toast-ui/editor-2.1.2.tgz#0472431bd039ae70882d77910e83f0ad222d0b1c"
@@ -5362,6 +5383,21 @@ hex-color-regex@^1.1.0:
   resolved "https://registry.npm.taobao.org/hex-color-regex/download/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha1-TAb8y0YC/iYCs8k9+C1+fb8aio4=
 
+highlight.js@^10.0.3:
+  version "10.0.3"
+  resolved "https://registry.npm.taobao.org/highlight.js/download/highlight.js-10.0.3.tgz#5effcc58420f113f279a0badb8ac50c4be06e63b"
+  integrity sha1-Xv/MWEIPET8nmgutuKxQxL4G5js=
+
+highlight.js@^9.18.1:
+  version "9.18.1"
+  resolved "https://registry.npm.taobao.org/highlight.js/download/highlight.js-9.18.1.tgz#ed21aa001fe6252bb10a3d76d47573c6539fe13c"
+  integrity sha1-7SGqAB/mJSuxCj121HVzxlOf4Tw=
+
+highlightjs@^9.16.2:
+  version "9.16.2"
+  resolved "https://registry.npm.taobao.org/highlightjs/download/highlightjs-9.16.2.tgz#07ea6cc7c93340fc440734fb7abf28558f1f0fe1"
+  integrity sha1-B+psx8kzQPxEBzT7er8oVY8fD+E=
+
 hmac-drbg@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/hmac-drbg/download/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"
@@ -7129,6 +7165,11 @@ mkdirp@0.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@^0.5.3, mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.5"
 
+moment@^2.26.0:
+  version "2.26.0"
+  resolved "https://registry.npm.taobao.org/moment/download/moment-2.26.0.tgz#5e1f82c6bafca6e83e808b30c8705eed0dcbd39a"
+  integrity sha1-Xh+Cxrr8pug+gIswyHBe7Q3L05o=
+
 mongodb@3.5.8:
   version "3.5.8"
   resolved "https://registry.npm.taobao.org/mongodb/download/mongodb-3.5.8.tgz#34550856449b745d145873734bf922c12d6b9caa"
@@ -7931,6 +7972,11 @@ pkg-up@^3.1.0:
   integrity sha1-EA7CNcwVDk/UJRlBJZaihRKg3vU=
   dependencies:
     find-up "^3.0.0"
+
+plantuml-encoder@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npm.taobao.org/plantuml-encoder/download/plantuml-encoder-1.4.0.tgz#7899302cf785de956bf1a167e15420feee5975f7"
+  integrity sha1-eJkwLPeF3pVr8aFn4VQg/u5Zdfc=
 
 pn@^1.1.0:
   version "1.1.0"
@@ -10363,6 +10409,18 @@ tty-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.npm.taobao.org/tty-browserify/download/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"
   integrity sha1-oVe6QC2iTpv5V/mqadUk7tQpAaY=
+
+tui-code-snippet@^2.2.0:
+  version "2.3.2"
+  resolved "https://registry.npm.taobao.org/tui-code-snippet/download/tui-code-snippet-2.3.2.tgz#39eb3ce46ea92043b3244f155797248535880c5d"
+  integrity sha1-Oes85G6pIEOzJE8VV5ckhTWIDF0=
+
+tui-color-picker@^2.2.6:
+  version "2.2.6"
+  resolved "https://registry.npm.taobao.org/tui-color-picker/download/tui-color-picker-2.2.6.tgz#bab54e47380e550bb3ac8ae974021b3cc2518aa9"
+  integrity sha1-urVORzgOVQuzrIrpdAIbPMJRiqk=
+  dependencies:
+    tui-code-snippet "^2.2.0"
 
 tunnel-agent@^0.6.0:
   version "0.6.0"
