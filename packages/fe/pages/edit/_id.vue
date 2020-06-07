@@ -3,26 +3,45 @@
     <v-col class>
       <v-text-field label="输入标题" v-model="post.title" hide-details />
     </v-col>
-    <v-col>
-      <editor ref="editor" height="auto" :options="editorOptions" :initialValue="post.content" />
+    <v-col md="6">
+      <v-textarea
+        outlined
+        name="input-7-4"
+        label="文章概要"
+        v-model="post.summary"
+      ></v-textarea>
     </v-col>
     <v-col>
-      <tag-selector @add="addTag" @del="delTag" :tags="tags" v-model="post.tags" />
+      <editor
+        ref="editor"
+        height="auto"
+        :options="editorOptions"
+        :initialValue="post.content"
+      />
     </v-col>
-    <dial @save="save" @del="del" />
+    <v-col>
+      <tag-selector
+        @add="addTag"
+        @del="delTag"
+        :tags="tags"
+        v-model="post.tags"
+      />
+    </v-col>
+    <dial @save="save" @del="del" @extra="openDialog" />
+    <dialog-edit v-model="showDialog" />
   </v-row>
 </template>
 
 <script>
 import Vue from 'vue'
 import Dial from '@/components/DialEdit'
+import DialogEdit from '@/components/DialogEdit'
 import TagSelector from '@/components/TagSelector'
 import { mapActions, mapState } from 'vuex'
 export default Vue.extend({
-  components: { Dial, TagSelector },
+  components: { Dial, TagSelector, DialogEdit },
 
   async asyncData({ params, $api, api, app }) {
-    console.log($api, api)
     const { id } = params
     if (id) {
       const [post = {}] = await app.$axios.$get(`/posts/${id}`)
@@ -38,6 +57,7 @@ export default Vue.extend({
   data() {
     const { editorOptions } = Vue
     return {
+      showDialog: false,
       editorOptions: {
         minHeight: '500px',
         ...editorOptions
@@ -46,7 +66,8 @@ export default Vue.extend({
         tags: [],
         title: '',
         content: '',
-        html: ''
+        html: '',
+        summary: ''
       }
     }
   },
@@ -62,7 +83,6 @@ export default Vue.extend({
   methods: {
     ...mapActions('tags', ['addTag', 'delTag', 'getTags']),
     getPost() {
-      debugger
       return this.$refs.editor.invoke('getMarkdown')
     },
     getHtml() {
@@ -80,6 +100,9 @@ export default Vue.extend({
     async del() {
       const { title, getPost, id, $axios } = this
       const result = await $axios.$delete(`posts/${id}`)
+    },
+    openDialog() {
+      this.showDialog = true
     }
   }
 })

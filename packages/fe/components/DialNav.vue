@@ -8,12 +8,24 @@
       v-if="subNavs && subNavs.length"
     >
       <template v-slot:activator>
-        <v-btn v-model="fab" :color="mainNav.color" dark fab>
-          <v-icon v-if="fab">{{mainNav.text}}</v-icon>
-          <v-icon v-else>mdi-account-circle</v-icon>
-        </v-btn>
+        <dial-nav-item :navObj="mainNav" #default="fab">
+          <v-icon v-if="fab">{{ mainNav.text }}</v-icon>
+          <v-icon v-else>mdi-home</v-icon>
+        </dial-nav-item>
+        <!-- <v-btn
+          v-model="fab"
+          :color="mainNav.color"
+          dark
+          fab
+          nuxt
+          :to="{ name: mainNav.pathName }"
+        >
+          <v-icon v-if="fab">{{ mainNav.text }}</v-icon>
+          <v-icon v-else>mdi-home</v-icon>
+        </v-btn> -->
       </template>
-      <v-btn
+      <dial-nav-item v-for="nav in subNavs" :key="nav.text" :navObj="nav" />
+      <!-- <v-btn
         fab
         dark
         small
@@ -23,22 +35,35 @@
         nuxt
         :to="{ name: nav.pathName }"
       >
-        <v-icon>{{nav.text}}</v-icon>
-      </v-btn>
+        <v-icon>{{ nav.text }}</v-icon>
+      </v-btn> -->
     </v-speed-dial>
-    <v-btn fab dark nuxt :to="{name: mainNav.pathName}" :color="mainNav.color" v-else>
-      <v-icon>{{mainNav.text}}</v-icon>
+    <v-btn fab dark nuxt :to="mainNav.to" :color="mainNav.color" v-else>
+      <v-icon>{{ mainNav.text }}</v-icon>
     </v-btn>
   </div>
 </template>
 
 <script>
+import DialNavItem from './DialNavItem'
+
+// 操作按钮功能
+const ops = {
+  toHome: { text: 'mdi-home', attrs: { color: 'red', to: { name: 'posts' } } },
+  share: {
+    text: 'mdi-share',
+    attrs: { color: 'green' },
+    on: { click: () => alert('share') }
+  }
+}
+
+// 对应的操作功能配置
 const navs = {
-  // posts: [{ text: 'mdi-close', color: 'red', pathName: 'posts' }],
-  'posts-id': [{ text: 'mdi-home', color: 'red', pathName: 'posts' }]
+  'posts-id': [ops.toHome, ops.share]
 }
 
 export default {
+  components: { DialNavItem },
   data() {
     return {
       fab: false,

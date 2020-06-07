@@ -5,7 +5,7 @@
       height="200px"
       src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
     >
-      <v-card-title>{{post.title}}</v-card-title>
+      <v-card-title>{{ post.title }}</v-card-title>
     </v-img>
 
     <v-card-subtitle class="pb-0">
@@ -15,7 +15,8 @@
         v-for="tag in post.tags"
         :data-tag="tag.text"
         :key="tag.text"
-      >{{tag.text}}</v-chip>
+        >{{ tag.text }}</v-chip
+      >
     </v-card-subtitle>
 
     <v-card-text class="text--primary">
