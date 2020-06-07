@@ -33,4 +33,8 @@ pre[class*='lang-'] {
 
 img {
   max-width: 100%;
+  &.v-parallax__image {
+    max-width: unset;
+    max-width: none;
+  }
 }
