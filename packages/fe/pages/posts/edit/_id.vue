@@ -4,28 +4,13 @@
       <v-text-field label="输入标题" v-model="post.title" hide-details />
     </v-col>
     <v-col md="6">
-      <v-textarea
-        outlined
-        name="input-7-4"
-        label="文章概要"
-        v-model="post.summary"
-      ></v-textarea>
+      <v-textarea counter="150" outlined name="input-7-4" label="文章概要" v-model="post.summary" />
     </v-col>
     <v-col>
-      <editor
-        ref="editor"
-        height="auto"
-        :options="editorOptions"
-        :initialValue="post.content"
-      />
+      <editor ref="editor" height="auto" :options="editorOptions" :initialValue="post.content" />
     </v-col>
     <v-col>
-      <tag-selector
-        @add="addTag"
-        @del="delTag"
-        :tags="tags"
-        v-model="post.tags"
-      />
+      <tag-selector @add="addTag" @del="delTag" :tags="tags" v-model="post.tags" />
     </v-col>
     <dial @save="save" @del="del" @extra="openDialog" />
     <dialog-edit v-model="showDialog" />

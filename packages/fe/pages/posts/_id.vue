@@ -16,7 +16,6 @@ import Vue from 'vue'
 import { mapState } from 'vuex'
 
 export default Vue.extend({
-  layout: 'blog',
   data() {
     return {
       post: { title: '', content: '', html: '', tags: [], author: '' },
@@ -27,7 +26,8 @@ export default Vue.extend({
     const { id } = params
     if (id) {
       const { state } = store
-      let { [id]: post } = state.posts.posts
+      const { posts } = state.posts
+      let { [id]: post } = posts
       if (!post) {
         ;[post] = await app.$axios.$get(`posts/${id}`)
         store.commit('posts/SAVE_POSTS', [post])

@@ -1,7 +1,7 @@
 # robots.txt generated at http://tool.chinaz.com/robots/ 
 User-agent: *
 Disallow: 
-Disallow: /edit
+Disallow: /posts/edit
 Sitemap: http://chosan.cn/sitemap.xml
 Sitemap: https://chosan.cn/sitemap.xml
 Sitemap: http://chosan.cn/sitemap.html
