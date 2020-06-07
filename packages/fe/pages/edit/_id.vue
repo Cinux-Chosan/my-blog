@@ -62,6 +62,7 @@ export default Vue.extend({
   methods: {
     ...mapActions('tags', ['addTag', 'delTag', 'getTags']),
     getPost() {
+      debugger
       return this.$refs.editor.invoke('getMarkdown')
     },
     getHtml() {

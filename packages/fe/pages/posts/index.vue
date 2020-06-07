@@ -4,12 +4,12 @@
       <template v-for="post in posts">
         <v-list-item :key="post._id">
           <v-list-item-content>
-            <nuxt-link :to="{ name: 'posts-id', params: {id: post._id}}" class="noDecoration">
+            <nuxt-link :to="{ name: 'posts-id', params: { id: post._id }}" class="noDecoration">
               <post-sum :post="post" />
             </nuxt-link>
           </v-list-item-content>
         </v-list-item>
-        <v-divider :key="post._id"></v-divider>
+        <!-- <v-divider :key="post._id"></v-divider> -->
       </template>
     </v-list>
   </div>

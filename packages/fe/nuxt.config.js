@@ -69,6 +69,10 @@ export default {
   proxy: {
     [serverPrefix]: `${serverUrl}:${serverPort}`
   },
+
+  router: {
+    // prefetchLinks: false
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

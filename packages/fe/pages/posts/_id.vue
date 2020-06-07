@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col class="text-center">
+    <v-col>
       <viewer :initialValue="post.content" :options="editorOptions">
         <div class="d-none">
           <!-- for SEO -->
@@ -27,13 +27,12 @@ export default Vue.extend({
     const { id } = params
     if (id) {
       const { state } = store
-      if (state.posts.posts[id]) {
-        return state.posts.posts[id]
-      } else {
-        const [post] = await app.$axios.$get(`posts/${id}`)
+      let { [id]: post } = state.posts.posts
+      if (!post) {
+        ;[post] = await app.$axios.$get(`posts/${id}`)
         store.commit('posts/SAVE_POSTS', [post])
-        return { post }
       }
+      return { post }
     }
   },
   computed: {

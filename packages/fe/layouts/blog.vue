@@ -7,7 +7,12 @@
         Posted by {{activePost.author || 'Chosan'}} on
         {{mmt(activePost.createTime).format('LLLL')}}
       </h6>
-      <v-chip class="mx-2 my-6 tag" :data-tag="tag.text" v-for="tag in activePost.tags" :key="tag.text">{{tag.text}}</v-chip>
+      <v-chip
+        class="mx-2 my-6 tag"
+        :data-tag="tag.text"
+        v-for="tag in activePost.tags"
+        :key="tag.text"
+      >{{tag.text}}</v-chip>
     </banner>
     <v-content class="blogContent">
       <v-container class="blogContainer">
@@ -16,6 +21,7 @@
         </v-responsive>
       </v-container>
     </v-content>
+    <dial-nav />
   </v-app>
 </template>
 
@@ -23,9 +29,10 @@
 import mmt from 'moment'
 import Banner from '@/components/Banner'
 import { mapState } from 'vuex'
+import DialNav from '@/components/DialNav'
 
 export default {
-  components: { Banner },
+  components: { Banner, DialNav },
   data() {
     return { mmt }
   },

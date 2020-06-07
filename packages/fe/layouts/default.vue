@@ -4,17 +4,21 @@
     <banner />
     <v-content class="blogContent">
       <v-container class="blogContainer">
-        <nuxt />
+        <v-responsive width="1180px" class="mx-auto">
+          <nuxt />
+        </v-responsive>
       </v-container>
     </v-content>
+    <dial-nav />
   </v-app>
 </template>
 
 <script>
 import Banner from '@/components/Banner'
+import DialNav from '@/components/DialNav'
 
 export default {
-  components: { Banner },
+  components: { Banner, DialNav },
   data() {
     return {}
   }
@@ -22,5 +26,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

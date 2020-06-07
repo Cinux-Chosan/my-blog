@@ -15,7 +15,7 @@ export class PostService {
     return this.postModel.updateOne({ _id: id }, postDto);
   }
   async find(id: string) {
-    return this.postModel.find(id ? { _id: id } : {});
+    return this.postModel.find(id ? { _id: id } : {}).sort('-updatedAt');
   }
   async del(id: string) {
     return this.postModel.updateOne({ _id: id }, { status: postStatus.deleted })

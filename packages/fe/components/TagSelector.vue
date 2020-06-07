@@ -1,61 +1,53 @@
 <template>
-  <v-container fluid>
-    <v-combobox
-      v-model="proxyModel"
-      :filter="filter"
-      :hide-no-data="!search"
-      :items="proxyTags"
-      :search-input.sync="search"
-      hide-selected
-      label="Search for an tag"
-      multiple
-      dense
-      small-chips
-      solo-inverted
-    >
-      <template #no-data>
-        <v-list-item>
-          <span class="subheading mr-2">Create tag:</span>
-          <v-chip :color="`${colors[nonce - 1]} lighten-3`" label small>{{ search }}</v-chip>
-          <span class="ml-2">(Press Enter)</span>
-        </v-list-item>
-      </template>
-      <template #selection="{ attrs, item, parent, selected }">
-        <v-chip
-          v-bind="attrs"
-          :color="`${item.color} lighten-3`"
-          :input-value="selected"
-          label
-          small
-        >
-          <span class="pr-2">{{ item.text }}</span>
-          <v-icon small @click="parent.selectItem(item)">mdi-close</v-icon>
-        </v-chip>
-      </template>
-      <template #item="{ index, item }">
-        <v-text-field
-          v-if="editing === item"
-          v-model="editing.text"
-          autofocus
-          flat
-          background-color="transparent"
-          hide-details
-          solo
-          @keyup.enter="edit(index, item)"
-        ></v-text-field>
-        <v-chip v-else :color="`${item.color} lighten-3`" dark label small>{{ item.text }}</v-chip>
-        <v-spacer></v-spacer>
-        <v-list-item-action @click.stop class="flex-row">
-          <v-btn icon @click.stop.prevent="edit(index, item)">
-            <v-icon>{{ editing !== item ? 'mdi-pencil' : 'mdi-check' }}</v-icon>
-          </v-btn>
-          <v-btn icon @click.stop.prevent="$emit('del', item)">
-            <v-icon>mdi-delete</v-icon>
-          </v-btn>
-        </v-list-item-action>
-      </template>
-    </v-combobox>
-  </v-container>
+  <v-combobox
+    v-model="proxyModel"
+    :filter="filter"
+    :hide-no-data="!search"
+    :items="proxyTags"
+    :search-input.sync="search"
+    hide-selected
+    label="Search for an tag"
+    multiple
+    dense
+    small-chips
+    solo-inverted
+  >
+    <template #no-data>
+      <v-list-item>
+        <span class="subheading mr-2">Create tag:</span>
+        <v-chip :color="`${colors[nonce - 1]} lighten-3`" label small>{{ search }}</v-chip>
+        <span class="ml-2">(Press Enter)</span>
+      </v-list-item>
+    </template>
+    <template #selection="{ attrs, item, parent, selected }">
+      <v-chip v-bind="attrs" :color="`${item.color} lighten-3`" :input-value="selected" label small>
+        <span class="pr-2">{{ item.text }}</span>
+        <v-icon small @click="parent.selectItem(item)">mdi-close</v-icon>
+      </v-chip>
+    </template>
+    <template #item="{ index, item }">
+      <v-text-field
+        v-if="editing === item"
+        v-model="editing.text"
+        autofocus
+        flat
+        background-color="transparent"
+        hide-details
+        solo
+        @keyup.enter="edit(index, item)"
+      ></v-text-field>
+      <v-chip v-else :color="`${item.color} lighten-3`" dark label small>{{ item.text }}</v-chip>
+      <v-spacer></v-spacer>
+      <v-list-item-action @click.stop class="flex-row">
+        <v-btn icon @click.stop.prevent="edit(index, item)">
+          <v-icon>{{ editing !== item ? 'mdi-pencil' : 'mdi-check' }}</v-icon>
+        </v-btn>
+        <v-btn icon @click.stop.prevent="$emit('del', item)">
+          <v-icon>mdi-delete</v-icon>
+        </v-btn>
+      </v-list-item-action>
+    </template>
+  </v-combobox>
 </template>
 
 <script>

@@ -1,3 +1,11 @@
+// * 河白色 #FFFFFF rgb(255, 255, 255)
+// * 杏仁黄 #FAF9DE rgb(250, 249, 222)
+// * 秋叶褐 #FFF2E2 rgb(255, 242, 226)
+// * 胭脂红 #FDE6E0 rgb(253, 230, 224)
+// * 青草绿 #E3EDCD rgb(227, 237, 205)
+// * 海天蓝 #DCE2F1 rgb(220, 226, 241)
+// * 葛巾紫 #E9EBFE rgb(233, 235, 254)
+// * 极光灰 #EAEAEF rgb(234, 234, 239)
 
 .blogContainer {
   width: 1180px;
@@ -8,11 +16,21 @@
   text-decoration: none !important;
 }
 
-// * 河白色 #FFFFFF rgb(255, 255, 255)
-// * 杏仁黄 #FAF9DE rgb(250, 249, 222)
-// * 秋叶褐 #FFF2E2 rgb(255, 242, 226)
-// * 胭脂红 #FDE6E0 rgb(253, 230, 224)
-// * 青草绿 #E3EDCD rgb(227, 237, 205)
-// * 海天蓝 #DCE2F1 rgb(220, 226, 241)
-// * 葛巾紫 #E9EBFE rgb(233, 235, 254)
-// * 极光灰 #EAEAEF rgb(234, 234, 239)
+code {
+  &::before,
+  &::after {
+    content: none !important;
+  }
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+  box-shadow: none !important;
+}
+
+pre[class*='lang-'] {
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12) !important;
+}
+
+img {
+  max-width: 100%;
+}

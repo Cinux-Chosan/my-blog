@@ -20,10 +20,12 @@ export class Post extends Document {
   @Prop({ type: [TagSchema] })
   tags: CreateTagDto[];
 
-  @Prop({
-    default: Date.now()
-  })
-  createTime: Date;
+  @Prop({})
+  createdAt: Date;
+
+  @Prop({ default: new Date })
+  updatedAt: Date;
+
 
   @Prop({ default: postStatus.activated })
   status: postStatus
