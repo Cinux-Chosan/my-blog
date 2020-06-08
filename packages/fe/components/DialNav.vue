@@ -12,31 +12,8 @@
           <v-icon v-if="fab">{{ mainNav.text }}</v-icon>
           <v-icon v-else>mdi-home</v-icon>
         </dial-nav-item>
-        <!-- <v-btn
-          v-model="fab"
-          :color="mainNav.color"
-          dark
-          fab
-          nuxt
-          :to="{ name: mainNav.pathName }"
-        >
-          <v-icon v-if="fab">{{ mainNav.text }}</v-icon>
-          <v-icon v-else>mdi-home</v-icon>
-        </v-btn> -->
       </template>
-      <dial-nav-item v-for="nav in subNavs" :key="nav.text" :navObj="nav" />
-      <!-- <v-btn
-        fab
-        dark
-        small
-        v-for="nav in subNavs"
-        :key="nav.text"
-        :color="nav.color"
-        nuxt
-        :to="{ name: nav.pathName }"
-      >
-        <v-icon>{{ nav.text }}</v-icon>
-      </v-btn> -->
+      <dial-nav-item small v-for="nav in subNavs" :key="nav.text" :navObj="nav" />
     </v-speed-dial>
     <v-btn fab dark nuxt :to="mainNav.to" :color="mainNav.color" v-else>
       <v-icon>{{ mainNav.text }}</v-icon>
@@ -51,7 +28,7 @@ import DialNavItem from './DialNavItem'
 const ops = {
   toHome: { text: 'mdi-home', attrs: { color: 'red', to: { name: 'posts' } } },
   share: {
-    text: 'mdi-share',
+    text: 'mdi-share-variant',
     attrs: { color: 'green' },
     on: { click: () => alert('share') }
   }

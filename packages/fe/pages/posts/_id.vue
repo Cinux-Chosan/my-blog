@@ -16,6 +16,21 @@ import Vue from 'vue'
 import { mapState } from 'vuex'
 
 export default Vue.extend({
+  // for SEO
+  head() {
+    const { post } = this
+    return {
+      title: post.title,
+      meta: [
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: post.tags.map(t => t.text).join()
+        },
+        { hid: 'description', name: 'description', content: post.title }
+      ]
+    }
+  },
   data() {
     return {
       post: { title: '', content: '', html: '', tags: [], author: '' },

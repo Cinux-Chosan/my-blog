@@ -24,6 +24,20 @@ import PostSum from '@/components/PostSum'
 
 export default {
   components: { Banner, PostSum },
+
+  // for SEO
+  head() {
+    const content = `${Object.values(this.posts).map(post =>
+      post.tags.map(t => t.text)
+    )}`
+    return {
+      meta: [
+        { hid: 'keywords', name: 'keywords', content },
+        { hid: 'description', name: 'description', content }
+      ]
+    }
+  },
+
   async fetch({ store, app }) {
     const posts = await app.$axios.$get('/posts')
     store.commit('posts/SAVE_POSTS', posts)

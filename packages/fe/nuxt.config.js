@@ -9,11 +9,19 @@ export default {
    ** Headers of the page
    */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    titleTemplate: titleChunk => {
+      // If undefined or blank then we don't need the hyphen
+      return titleChunk ? `${titleChunk} - Chosan's Home` : "Chosan's Home"
+    },
+    title: '',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      {
+        hid: 'keywords',
+        name: 'keywords',
+        content: '前端,Node,Node.js,Vue,JavaScript'
+      },
       {
         hid: 'description',
         name: 'description',
