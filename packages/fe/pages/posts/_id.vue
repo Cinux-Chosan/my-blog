@@ -37,7 +37,7 @@ export default Vue.extend({
       editorOptions: Vue.editorOptions
     }
   },
-  async asyncData({ params, app, store }) {
+  async asyncData({ params, query, app, store }) {
     const { id } = params
     if (id) {
       const { state } = store

@@ -26,3 +26,13 @@ export class UpdatePostDto {
   tags?: CreateTagDto[];
   banners?: string[];
 }
+
+
+export class QueryPostDto {
+  // 标题片段
+  titleChunk: string
+  // 文章内容片段
+  contentChunk: string
+  // 标签
+  tag: string
+}

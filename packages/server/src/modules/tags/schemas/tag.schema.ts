@@ -7,7 +7,11 @@ export class Tag extends Document {
   text: string;
 
   @Prop()
-  createdAt: Date
+  createdAt: Date;
+
+  // 关联的文章外键
+  @Prop()
+  posts: string[];
 }
 
 export const TagSchema = SchemaFactory.createForClass(Tag);

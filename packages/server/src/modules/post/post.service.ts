@@ -1,7 +1,11 @@
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { CreatePostDto, UpdatePostDto, postStatus } from './dto/create-post-dto';
+import {
+  CreatePostDto,
+  UpdatePostDto,
+  postStatus,
+} from './dto/create-post-dto';
 import { Post } from './schemas/post.schema';
 @Injectable()
 export class PostService {
@@ -11,6 +15,7 @@ export class PostService {
     const createdPost = new this.postModel(postDto);
     return createdPost.save();
   }
+
   async update(id: string, postDto: UpdatePostDto) {
     const result = await this.postModel.updateOne({ _id: id }, postDto);
     if (result.nModified) {
@@ -18,13 +23,20 @@ export class PostService {
       return result;
     }
   }
-  async find(id: string) {
-    return this.postModel.find(id ? { _id: id } : {}).sort('-updatedAt');
+
+  /**
+   * 查询文章数据，如果有 id 则查询特定 id 的文章，如果没有 id 则查询所有文章。
+   * @param id 文章ID
+   * @param status 文章状态，默认查询未删除状态的文章
+   */
+  async find(queryObj: CreatePostDto) {
+    return this.postModel.find(queryObj).sort('-updatedAt');
   }
+
   async del(id: string) {
-    const result = await this.postModel.updateOne({ _id: id }, { status: postStatus.deleted })
-    if (result.nModified) {
-      return result;
-    }
+    return this.postModel.updateOne(
+      { _id: id },
+      { status: postStatus.deleted },
+    );
   }
 }
