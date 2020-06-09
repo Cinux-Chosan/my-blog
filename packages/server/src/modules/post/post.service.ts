@@ -12,12 +12,19 @@ export class PostService {
     return createdPost.save();
   }
   async update(id: string, postDto: UpdatePostDto) {
-    return this.postModel.updateOne({ _id: id }, postDto);
+    const result = await this.postModel.updateOne({ _id: id }, postDto);
+    if (result.nModified) {
+      // 更新成功
+      return result;
+    }
   }
   async find(id: string) {
     return this.postModel.find(id ? { _id: id } : {}).sort('-updatedAt');
   }
   async del(id: string) {
-    return this.postModel.updateOne({ _id: id }, { status: postStatus.deleted })
+    const result = await this.postModel.updateOne({ _id: id }, { status: postStatus.deleted })
+    if (result.nModified) {
+      return result;
+    }
   }
 }
