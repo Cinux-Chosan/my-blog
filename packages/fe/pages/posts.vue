@@ -1,24 +1,17 @@
 <template>
-  <div>
+  <div :class="activeClass">
     <banner>
       <!-- 具体页面 Banner 信息 -->
       <template v-if="activePost">
-        <h1 class="display-2 font-weight-regular mb-4">
-          {{ activePost.title }}
-        </h1>
+        <h1 class="display-2 font-weight-regular mb-4">{{ activePost.title }}</h1>
         <h6 class="font-italic font-weight-light subtitle-2">
           Posted by {{ activePost.author || 'Chosan' }} on
           {{ mmt(activePost.createTime).format('LLLL') }}
         </h6>
+        <chip-list :tags="tags" />
       </template>
       <template>
-        <v-chip
-          class="mx-2 my-6 tag"
-          v-for="tag in tags"
-          :data-tag="tag.text"
-          :key="tag.text"
-          >{{ tag.text }}</v-chip
-        >
+        <chip-list :tags="tags" @click="queryPostByTag" />
       </template>
     </banner>
     <v-container class="blogContainer">
@@ -33,11 +26,12 @@
 <script>
 import mmt from 'moment'
 import Banner from '@/components/Banner'
+import ChipList from '@/components/ChipList'
 import { mapState } from 'vuex'
 import DialNav from '@/components/DialNav'
 
 export default {
-  components: { Banner, DialNav },
+  components: { ChipList, DialNav, Banner },
   data() {
     return { mmt }
   },
@@ -51,13 +45,24 @@ export default {
     activePost() {
       const { $route, posts } = this
       return posts[$route.params.id]
+    },
+    activeClass() {
+      const { name } = this.$route
+      switch (name) {
+        case 'posts':
+          return 'posts'
+        case 'posts-id':
+          return 'postsId'
+      }
     }
   }
 }
 </script>
 
-<style scoped>
-.blogContent {
-  background-color: #e3edcd;
+<style lang="scss" scoped>
+.posts {
+  .v-chip {
+    cursor: pointer;
+  }
 }
 </style>
