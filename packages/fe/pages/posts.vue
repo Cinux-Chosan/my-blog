@@ -1,18 +1,24 @@
 <template>
   <div>
     <banner>
+      <!-- 具体页面 Banner 信息 -->
       <template v-if="activePost">
-        <h1 class="display-2 font-weight-regular mb-4">{{activePost.title}}</h1>
+        <h1 class="display-2 font-weight-regular mb-4">
+          {{ activePost.title }}
+        </h1>
         <h6 class="font-italic font-weight-light subtitle-2">
-          Posted by {{activePost.author || 'Chosan'}} on
-          {{mmt(activePost.createTime).format('LLLL')}}
+          Posted by {{ activePost.author || 'Chosan' }} on
+          {{ mmt(activePost.createTime).format('LLLL') }}
         </h6>
+      </template>
+      <template>
         <v-chip
           class="mx-2 my-6 tag"
+          v-for="tag in tags"
           :data-tag="tag.text"
-          v-for="tag in activePost.tags"
           :key="tag.text"
-        >{{tag.text}}</v-chip>
+          >{{ tag.text }}</v-chip
+        >
       </template>
     </banner>
     <v-container class="blogContainer">
@@ -23,7 +29,6 @@
     <dial-nav />
   </div>
 </template>
- 
 
 <script>
 import mmt from 'moment'
@@ -36,8 +41,13 @@ export default {
   data() {
     return { mmt }
   },
+  async fetch({ store, app }) {
+    const tags = await app.$axios.$get('/tags')
+    store.commit('tags/ADD_TAGS', tags)
+  },
   computed: {
     ...mapState('posts', ['posts']),
+    ...mapState('tags', ['tags']),
     activePost() {
       const { $route, posts } = this
       return posts[$route.params.id]

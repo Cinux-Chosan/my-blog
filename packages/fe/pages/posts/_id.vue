@@ -2,10 +2,10 @@
   <v-row>
     <v-col>
       <viewer :initialValue="post.content" :options="editorOptions">
-        <div class="d-none">
-          <!-- for SEO -->
-          <span v-html="post.html"></span>
-        </div>
+        <!-- for SEO -->
+        <section class="d-none">
+          <article v-html="post.html"></article>
+        </section>
       </viewer>
     </v-col>
   </v-row>
@@ -55,7 +55,6 @@ export default Vue.extend({
   }
 })
 </script>
-
 
 <style scoped>
 .bannerBlock {

@@ -1,5 +1,3 @@
-import axios from '@nuxtjs/axios'
-
 export const state = () => {
   return {
     tags: []
