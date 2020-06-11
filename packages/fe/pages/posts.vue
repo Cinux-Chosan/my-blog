@@ -81,6 +81,6 @@ export default {
 
 <style lang="scss">
 .postsToolBar {
-  border-radius: 24px;
+  border-radius: 5px !important;
 }
 </style>
