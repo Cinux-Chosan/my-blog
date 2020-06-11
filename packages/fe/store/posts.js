@@ -1,6 +1,11 @@
 export const state = () => {
   return {
-    posts: {}
+    posts: {},
+    pagination: {
+      page: 1,
+      total: 0,
+      limit: 10
+    }
   }
 }
 
@@ -10,5 +15,9 @@ export const mutations = {
     console.log('psotList', postList)
     postList.forEach(post => (posts[post._id] = post))
     state.posts = posts
+  },
+
+  UPDATE_PAGINATION(state, pagination) {
+    state.pagination = pagination
   }
 }

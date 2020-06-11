@@ -11,6 +11,12 @@
         <chip-list :tags="activePost.tags" />
       </template>
       <template v-if="$route.name === 'posts'">
+        <v-toolbar :collapse="collapse" dense floating class="postsToolBar">
+          <v-text-field autofocus hide-details single-line v-model="searchText" v-if="!collapse"></v-text-field>
+          <v-btn icon @click="doSearch">
+            <v-icon>mdi-magnify</v-icon>
+          </v-btn>
+        </v-toolbar>
         <chip-list :tags="tags" :nav="true" @click="cancel" />
       </template>
     </banner>
@@ -32,12 +38,12 @@ import DialNav from '@/components/DialNav'
 
 export default {
   components: { ChipList, DialNav, Banner },
-  data() {
-    return { mmt }
-  },
   async fetch({ store, app }) {
     const tags = await app.$axios.$get('/tags')
     store.commit('tags/SAVE_TAGS', tags)
+  },
+  data() {
+    return { mmt, collapse: true, searchText: '' }
   },
   computed: {
     ...mapState('posts', ['posts']),
@@ -63,15 +69,18 @@ export default {
       if (tag.text === query.tag) {
         this.$nextTick(() => $router.push({ ...query, tag: '' }))
       }
+    },
+    doSearch() {
+      if (this.collapse) {
+        this.collapse = false
+      }
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.posts {
-  .v-chip {
-    cursor: pointer;
-  }
+<style lang="scss">
+.postsToolBar {
+  border-radius: 24px;
 }
 </style>

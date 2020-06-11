@@ -1,20 +1,38 @@
 <template>
-  <v-list>
-    <template v-for="post in posts">
-      <v-list-item :key="post._id">
-        <v-list-item-content>
-          <nuxt-link
-            :to="{ name: 'posts-id', params: { id: post._id }}"
-            class="mx-auto noDecoration"
-          >
-            <v-hover #default="{hover}">
-              <post-sum :post="post" :class="`elevation-${hover ? 5 : 2}`" />
-            </v-hover>
-          </nuxt-link>
-        </v-list-item-content>
-      </v-list-item>
-    </template>
-  </v-list>
+  <v-row>
+    <v-col :cols="8">
+      <v-list>
+        <template v-for="post in posts">
+          <v-list-item :key="post._id" :id="`post-${post._id}`">
+            <v-list-item-content>
+              <nuxt-link
+                :to="{ name: 'posts-id', params: { id: post._id }}"
+                class="mx-auto noDecoration"
+              >
+                <v-hover #default="{hover}">
+                  <post-sum :post="post" :class="`elevation-${hover ? 5 : 2}`" />
+                </v-hover>
+              </nuxt-link>
+            </v-list-item-content>
+          </v-list-item>
+        </template>
+      </v-list>
+    </v-col>
+    <v-col :cols="4">
+      <ul class="postNavList">
+        <li class="postNav" v-for="post in posts" :key="post._id">
+          <span @click="goToPost(post)">{{post.title}}</span>
+        </li>
+      </ul>
+      <v-pagination
+        v-if="paginationLen"
+        v-model="page"
+        :total-visible="5"
+        :length="paginationLen"
+        class="justify-start"
+      ></v-pagination>
+    </v-col>
+  </v-row>
 </template>
  
 <script>
@@ -25,7 +43,7 @@ import PostSum from '@/components/PostSum'
 export default {
   components: { Banner, PostSum },
   watchQuery: true,
-  
+
   // for SEO
   head() {
     const content = `${Object.values(this.posts).map(post =>
@@ -40,18 +58,53 @@ export default {
   },
 
   async fetch({ store, app, query }) {
-    const posts = await app.$axios.$get('/posts', { params: query })
+    const { posts, pagination } = await app.$axios.$get('/posts', {
+      params: query
+    })
     store.commit('posts/SAVE_POSTS', posts)
+    store.commit('posts/UPDATE_PAGINATION', pagination)
+  },
+
+  data() {
+    return {}
   },
 
   computed: {
-    ...mapState('posts', ['posts'])
+    ...mapState('posts', ['posts', 'pagination']),
+    page: {
+      get() {
+        return Number(this.pagination.page)
+      },
+      set(v) {
+        const { $route, $router } = this
+        $router.push({ query: { ...$route.query, page: v } })
+      }
+    },
+    paginationLen() {
+      const { pagination } = this
+      const { total, limit } = pagination
+      return Math.ceil(total / limit)
+    }
+  },
+  methods: {
+    async goToPost(post) {
+      await this.$vuetify.goTo(`#post-${post._id}`)
+    }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .noDecoration {
   flex: 0 !important;
+}
+.postNavList {
+  padding: 12px;
+  li {
+    line-height: 2em;
+    span {
+      cursor: pointer;
+    }
+  }
 }
 </style>

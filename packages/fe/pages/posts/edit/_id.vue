@@ -29,7 +29,9 @@ export default Vue.extend({
   async asyncData({ params, $api, api, app }) {
     const { id } = params
     if (id) {
-      const [post = {}] = await app.$axios.$get(`/posts/${id}`)
+      const {
+        posts: [post = {}]
+      } = await app.$axios.$get(`/posts/${id}`)
       return { post }
     }
   },
