@@ -36,7 +36,7 @@ export default Vue.extend({
 
   async fetch({ store, app }) {
     const tags = await app.$axios.$get('/tags')
-    store.commit('tags/ADD_TAGS', tags)
+    store.commit('tags/SAVE_TAGS', tags)
   },
 
   data() {

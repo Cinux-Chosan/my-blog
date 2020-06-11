@@ -8,10 +8,10 @@
           Posted by {{ activePost.author || 'Chosan' }} on
           {{ mmt(activePost.createTime).format('LLLL') }}
         </h6>
-        <chip-list :tags="tags" />
+        <chip-list :tags="activePost.tags" />
       </template>
-      <template>
-        <chip-list :tags="tags" @click="queryPostByTag" />
+      <template v-if="$route.name === 'posts'">
+        <chip-list :tags="tags" :nav="true" @click="cancel" />
       </template>
     </banner>
     <v-container class="blogContainer">
@@ -37,7 +37,7 @@ export default {
   },
   async fetch({ store, app }) {
     const tags = await app.$axios.$get('/tags')
-    store.commit('tags/ADD_TAGS', tags)
+    store.commit('tags/SAVE_TAGS', tags)
   },
   computed: {
     ...mapState('posts', ['posts']),
@@ -53,6 +53,15 @@ export default {
           return 'posts'
         case 'posts-id':
           return 'postsId'
+      }
+    }
+  },
+  methods: {
+    cancel(tag) {
+      const { $router, $route } = this
+      const { query } = $route
+      if (tag.text === query.tag) {
+        this.$nextTick(() => $router.push({ ...query, tag: '' }))
       }
     }
   }

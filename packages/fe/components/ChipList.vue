@@ -1,11 +1,13 @@
 <template>
   <div>
     <v-chip
-      class="mx-2 my-6 tag"
+      exact
       v-for="tag in tags"
-      :data-tag="tag.text"
       :key="tag.text"
+      :nuxt="nav"
+      :to="{ name: 'posts', query:{ ...$route.query, tag: tag.text }}"
       @click="$emit('click', tag)"
+      class="mx-2 my-6 tag"
     >{{ tag.text }}</v-chip>
   </div>
 </template>
@@ -16,6 +18,10 @@ export default {
     tags: {
       type: Array,
       default: () => []
+    },
+    nav: {
+      type: Boolean,
+      default: false
     }
   }
 }

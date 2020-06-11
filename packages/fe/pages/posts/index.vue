@@ -24,7 +24,8 @@ import PostSum from '@/components/PostSum'
 
 export default {
   components: { Banner, PostSum },
-
+  watchQuery: true,
+  
   // for SEO
   head() {
     const content = `${Object.values(this.posts).map(post =>
@@ -38,8 +39,8 @@ export default {
     }
   },
 
-  async fetch({ store, app }) {
-    const posts = await app.$axios.$get('/posts')
+  async fetch({ store, app, query }) {
+    const posts = await app.$axios.$get('/posts', { params: query })
     store.commit('posts/SAVE_POSTS', posts)
   },
 

@@ -5,8 +5,11 @@ export const state = () => {
 }
 
 export const mutations = {
-  ADD_TAGS(state, tag) {
-    state.tags.push(...tag)
+  SAVE_TAGS(state, tag) {
+    state.tags = tag
+  },
+  ADD_TAG(state, tags) {
+    state.tags.push(...tags)
   },
   DEL_TAG(state, tag) {
     const { tags } = state
@@ -19,7 +22,7 @@ export const mutations = {
 export const actions = {
   async addTag({ commit }, tag) {
     await this.$axios.$post(`tags/${tag.text}`, tag)
-    commit('ADD_TAGS', [tag])
+    commit('ADD_TAG', [tag])
   },
   async delTag({ commit }, tag) {
     const result = await this.$axios.$delete(`tags/${tag.text}`)
@@ -27,6 +30,6 @@ export const actions = {
   },
   async getTags() {
     const tags = await this.$axios.$post('tags')
-    commit('ADD_TAGS', tags)
+    commit('SAVE_TAGS', tags)
   }
 }
