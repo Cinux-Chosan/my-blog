@@ -5,8 +5,8 @@ export const state = () => {
 }
 
 export const mutations = {
-  SAVE_TAGS(state, tag) {
-    state.tags = tag
+  SAVE_TAGS(state, tags) {
+    state.tags = tags
   },
   ADD_TAG(state, tags) {
     state.tags.push(...tags)

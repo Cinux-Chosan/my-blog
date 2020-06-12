@@ -6,6 +6,12 @@
   "author": "chosan",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "fe": "yarn workspace fe dev",
+    "fe:prd": "yarn workspace fe prod",
+    "server": "yarn workspace server dev",
+    "server:prd": "yarn workspace server prod"
+  },
   "dependencies": {
     "core-js": "2.6.5"
   },

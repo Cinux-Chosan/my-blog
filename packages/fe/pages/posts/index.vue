@@ -2,15 +2,18 @@
   <v-row>
     <v-col :cols="8">
       <v-list>
-        <template v-for="post in posts">
+        <template v-for="post in postList">
           <v-list-item :key="post._id" :id="`post-${post._id}`">
             <v-list-item-content>
               <nuxt-link
-                :to="{ name: 'posts-id', params: { id: post._id }}"
+                :to="{ name: 'posts-id', params: { id: post._id } }"
                 class="mx-auto noDecoration"
               >
                 <v-hover #default="{hover}">
-                  <post-sum :post="post" :class="`elevation-${hover ? 5 : 2}`" />
+                  <post-sum
+                    :post="post"
+                    :class="`elevation-${hover ? 5 : 2}`"
+                  />
                 </v-hover>
               </nuxt-link>
             </v-list-item-content>
@@ -18,10 +21,20 @@
         </template>
       </v-list>
     </v-col>
-    <v-col :cols="4">
+    <v-col :cols="4"
+      >{{ activeId }}
+      <v-treeview
+        hoverable
+        activatable
+        open-on-click
+        @update:active="activeTitle"
+        :items="postList"
+        item-key="_id"
+        item-text="title"
+      />
       <ul class="postNavList">
-        <li class="postNav" v-for="post in posts" :key="post._id">
-          <span @click="goToPost(post)">{{post.title}}</span>
+        <li class="postNav" v-for="post in postList" :key="post._id">
+          <span @click="goToPost(post)">{{ post.title }}</span>
         </li>
       </ul>
       <v-pagination
@@ -34,10 +47,10 @@
     </v-col>
   </v-row>
 </template>
- 
+
 <script>
 import Banner from '@/components/Banner'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import PostSum from '@/components/PostSum'
 
 export default {
@@ -66,11 +79,14 @@ export default {
   },
 
   data() {
-    return {}
+    return {
+      activeId: ' '
+    }
   },
 
   computed: {
-    ...mapState('posts', ['posts', 'pagination']),
+    ...mapState('posts', ['postList', 'pagination']),
+    ...mapGetters('posts', ['posts']),
     page: {
       get() {
         return Number(this.pagination.page)
@@ -89,6 +105,9 @@ export default {
   methods: {
     async goToPost(post) {
       await this.$vuetify.goTo(`#post-${post._id}`)
+    },
+    async activeTitle([id]) {
+      await this.$vuetify.goTo(`#post-${id}`)
     }
   }
 }

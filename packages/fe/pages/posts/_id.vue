@@ -13,7 +13,7 @@
 
 <script>
 import Vue from 'vue'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default Vue.extend({
   // for SEO
@@ -40,8 +40,8 @@ export default Vue.extend({
   async asyncData({ params, query, app, store }) {
     const { id } = params
     if (id) {
-      const { state } = store
-      const { posts } = state.posts
+      const { getters } = store
+      const posts = getters['posts/posts']
       let { [id]: post } = posts
       if (!post) {
         ;({
@@ -53,7 +53,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState('posts', ['posts'])
+    ...mapGetters('posts', ['posts'])
   }
 })
 </script>

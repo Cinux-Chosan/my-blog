@@ -1,6 +1,6 @@
 export const state = () => {
   return {
-    posts: {},
+    postList: [],
     pagination: {
       page: 1,
       total: 0,
@@ -11,13 +11,19 @@ export const state = () => {
 
 export const mutations = {
   SAVE_POSTS(state, postList) {
-    const posts = {}
-    console.log('psotList', postList)
-    postList.forEach(post => (posts[post._id] = post))
-    state.posts = posts
+    state.postList = postList
   },
 
   UPDATE_PAGINATION(state, pagination) {
     state.pagination = pagination
+  }
+}
+
+export const getters = {
+  posts(state) {
+    return state.postList.reduce(
+      (map, post) => Object.assign(map, { [post._id]: post }),
+      {}
+    )
   }
 }

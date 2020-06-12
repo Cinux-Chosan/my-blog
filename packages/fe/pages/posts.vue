@@ -3,7 +3,9 @@
     <banner>
       <!-- 具体页面 Banner 信息 -->
       <template v-if="activePost">
-        <h1 class="display-2 font-weight-regular mb-4">{{ activePost.title }}</h1>
+        <h1 class="display-2 font-weight-regular mb-4">
+          {{ activePost.title }}
+        </h1>
         <h6 class="font-italic font-weight-light subtitle-2">
           Posted by {{ activePost.author || 'Chosan' }} on
           {{ mmt(activePost.createTime).format('LLLL') }}
@@ -12,7 +14,13 @@
       </template>
       <template v-if="$route.name === 'posts'">
         <v-toolbar :collapse="collapse" dense floating class="postsToolBar">
-          <v-text-field autofocus hide-details single-line v-model="searchText" v-if="!collapse"></v-text-field>
+          <v-text-field
+            autofocus
+            hide-details
+            single-line
+            v-model="searchText"
+            v-if="!collapse"
+          ></v-text-field>
           <v-btn icon @click="doSearch">
             <v-icon>mdi-magnify</v-icon>
           </v-btn>
@@ -33,7 +41,7 @@
 import mmt from 'moment'
 import Banner from '@/components/Banner'
 import ChipList from '@/components/ChipList'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import DialNav from '@/components/DialNav'
 
 export default {
@@ -46,7 +54,7 @@ export default {
     return { mmt, collapse: true, searchText: '' }
   },
   computed: {
-    ...mapState('posts', ['posts']),
+    ...mapGetters('posts', ['posts']),
     ...mapState('tags', ['tags']),
     activePost() {
       const { $route, posts } = this
