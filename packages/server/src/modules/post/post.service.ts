@@ -29,8 +29,22 @@ export class PostService {
    * @param id 文章ID
    * @param status 文章状态，默认查询未删除状态的文章
    */
-  async find(queryObj: CreatePostDto) {
-    return this.postModel.find(queryObj).sort('-updatedAt');
+  async find(id: string, query: any) {
+    const queryObj = { status: postStatus.activated } as any;
+    const { page = 1, limit = 10 } = query;
+    // 匹配 id
+    id && (queryObj._id = id)
+    // 模糊匹配标题
+    query.titleChunk && (queryObj.title = { $regex: new RegExp(query.titleChunk, 'i') })
+    // 模糊匹配内容
+    query.contentChunk && (queryObj.content = { $regex: new RegExp(query.contentChunk, 'i') })
+    // 包含标签匹配
+    query.tag && (queryObj.tags = { $elemMatch: { text: query.tag } });
+    console.log(queryObj, page, limit)
+    const qPosts = this.postModel.find(queryObj).sort('-updatedAt').skip((page - 1) * limit).limit(Number(limit));
+    const qTotal = this.postModel.find(queryObj).count()
+    const [posts, total] = await Promise.all([qPosts, qTotal])
+    return { posts, pagination: { total, limit, page } }
   }
 
   async del(id: string) {

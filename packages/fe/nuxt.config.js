@@ -1,7 +1,10 @@
 import colors from 'vuetify/es5/util/colors'
 import globalConfig from '../../global.config'
+import path from 'path'
 
 const { serverUrl, serverPort, serverPrefix } = globalConfig
+
+const resolveDir = dir => path.join(__dirname, dir)
 
 export default {
   mode: 'universal',
@@ -110,6 +113,12 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) {
+      const alias = {
+        '@utils': resolveDir('utils')
+      }
+      Object.assign(config.resolve.alias, alias)
+      console.log('------------', config.resolve.alias)
+    }
   }
 }

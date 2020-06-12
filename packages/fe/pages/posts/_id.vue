@@ -44,7 +44,9 @@ export default Vue.extend({
       const { posts } = state.posts
       let { [id]: post } = posts
       if (!post) {
-        ;[post] = await app.$axios.$get(`posts/${id}`)
+        ;({
+          posts: [post]
+        } = await app.$axios.$get(`posts/${id}`))
         store.commit('posts/SAVE_POSTS', [post])
       }
       return { post }
