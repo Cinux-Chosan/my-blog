@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col>
+    <v-col :cols="8">
       <viewer :initialValue="post.content" :options="editorOptions">
         <!-- for SEO -->
         <section class="d-none">
@@ -8,12 +8,24 @@
         </section>
       </viewer>
     </v-col>
+    <v-col :cols="4">
+      <v-treeview
+        :open="flattenedNav.map(nav => nav.id)"
+        hoverable
+        activatable
+        @update:active="goToElement"
+        :items="postNav"
+        item-text="text"
+      />
+      <!-- @update:open="goToElement" -->
+    </v-col>
   </v-row>
 </template>
 
 <script>
 import Vue from 'vue'
 import { mapState, mapGetters } from 'vuex'
+import { createNavByHtml, traverse } from '@utils'
 
 export default Vue.extend({
   // for SEO
@@ -33,9 +45,13 @@ export default Vue.extend({
   },
   data() {
     return {
+      postNav: [],
       post: { title: '', content: '', html: '', tags: [], author: '' },
       editorOptions: Vue.editorOptions
     }
+  },
+  mounted() {
+    this.postNav = createNavByHtml('.tui-editor-contents')
   },
   async asyncData({ params, query, app, store }) {
     const { id } = params
@@ -53,13 +69,29 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapGetters('posts', ['posts'])
+    ...mapGetters('posts', ['posts']),
+    flattenedNav() {
+      return [...traverse(this.postNav)]
+    }
+  },
+  methods: {
+    goToElement([id]) {
+      const { $vuetify, flattenedNav } = this
+      const nav = flattenedNav.find(nav => nav.id === id)
+      nav && $vuetify.goTo(nav.el)
+    }
   }
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .bannerBlock {
   font-size: 55px;
+}
+::v-deep .v-treeview-node__label {
+  cursor: pointer;
+  &:hover {
+    color: #fb8c00;
+  }
 }
 </style>

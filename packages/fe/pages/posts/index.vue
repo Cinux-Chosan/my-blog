@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="pagePosts">
     <v-col :cols="8">
       <v-list>
         <template v-for="post in postList">
@@ -10,10 +10,7 @@
                 class="mx-auto noDecoration"
               >
                 <v-hover #default="{hover}">
-                  <post-sum
-                    :post="post"
-                    :class="`elevation-${hover ? 5 : 2}`"
-                  />
+                  <post-sum :post="post" :class="`elevation-${hover ? 5 : 2}`" />
                 </v-hover>
               </nuxt-link>
             </v-list-item-content>
@@ -21,8 +18,8 @@
         </template>
       </v-list>
     </v-col>
-    <v-col :cols="4"
-      >{{ activeId }}
+    <v-col :cols="4">
+      {{ activeId }}
       <v-treeview
         hoverable
         activatable
@@ -32,11 +29,6 @@
         item-key="_id"
         item-text="title"
       />
-      <ul class="postNavList">
-        <li class="postNav" v-for="post in postList" :key="post._id">
-          <span @click="goToPost(post)">{{ post.title }}</span>
-        </li>
-      </ul>
       <v-pagination
         v-if="paginationLen"
         v-model="page"
@@ -116,6 +108,11 @@ export default {
 <style lang="scss" scoped>
 .noDecoration {
   flex: 0 !important;
+}
+.pagePosts {
+  ::v-deep .v-treeview-node__level {
+    width: 0;
+  }
 }
 .postNavList {
   padding: 12px;

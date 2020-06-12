@@ -118,7 +118,6 @@ export default {
         '@utils': resolveDir('utils')
       }
       Object.assign(config.resolve.alias, alias)
-      console.log('------------', config.resolve.alias)
     }
   }
 }
