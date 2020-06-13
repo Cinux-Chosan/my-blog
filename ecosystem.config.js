@@ -33,7 +33,7 @@ module.exports = {
       host: "chosan.cn",
       ref: "origin/master",
       ssh_options: "StrictHostKeyChecking=no",
-      repo: "git@github.com:Cinux-Chosan/coin-bot-service.git",
+      repo: "git@github.com:Cinux-Chosan/my-blog.git",
       path: "/var/www/my-blog",
       "post-deploy": `\
         yarn &&
