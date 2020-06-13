@@ -45,6 +45,11 @@ export default {
   data() {
     return { mmt, collapse: true, searchText: this.$route.query.contentChunk }
   },
+  watch: {
+    '$route.query.contentChunk'(v) {
+      this.searchText = v
+    }
+  },
   computed: {
     ...mapGetters('posts', ['posts']),
     ...mapState('tags', ['tags']),
