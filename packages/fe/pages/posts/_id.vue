@@ -77,8 +77,15 @@ export default Vue.extend({
   methods: {
     goToElement([id]) {
       const { $vuetify, flattenedNav } = this
-      const nav = flattenedNav.find(nav => nav.id === id)
-      nav && $vuetify.goTo(nav.el)
+      const nav = flattenedNav.forEach(nav => {
+        const { el, id: localId } = nav
+        if (localId === id) {
+          el.classList.add('activeTitle')
+          $vuetify.goTo(el)
+        } else {
+          el.classList.remove('activeTitle')
+        }
+      })
     }
   }
 })
@@ -93,5 +100,11 @@ export default Vue.extend({
   &:hover {
     color: #fb8c00;
   }
+}
+</style>
+
+<style >
+.activeTitle {
+  color: #fb8c00 !important;
 }
 </style>

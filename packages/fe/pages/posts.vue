@@ -3,24 +3,16 @@
     <banner>
       <!-- 具体页面 Banner 信息 -->
       <template v-if="activePost">
-        <h1 class="display-2 font-weight-regular mb-4">
-          {{ activePost.title }}
-        </h1>
+        <h1 class="display-2 font-weight-regular mb-4">{{ activePost.title }}</h1>
         <h6 class="font-italic font-weight-light subtitle-2">
           Posted by {{ activePost.author || 'Chosan' }} on
-          {{ mmt(activePost.createTime).format('LLLL') }}
+          {{date}}
         </h6>
         <chip-list :tags="activePost.tags" />
       </template>
       <template v-if="$route.name === 'posts'">
         <v-toolbar :collapse="collapse" dense floating class="postsToolBar">
-          <v-text-field
-            autofocus
-            hide-details
-            single-line
-            v-model="searchText"
-            v-if="!collapse"
-          ></v-text-field>
+          <v-text-field autofocus hide-details single-line v-model="searchText" v-if="!collapse"></v-text-field>
           <v-btn icon @click="doSearch">
             <v-icon>mdi-magnify</v-icon>
           </v-btn>
@@ -51,7 +43,7 @@ export default {
     store.commit('tags/SAVE_TAGS', tags)
   },
   data() {
-    return { mmt, collapse: true, searchText: '' }
+    return { mmt, collapse: true, searchText: this.$route.query.contentChunk }
   },
   computed: {
     ...mapGetters('posts', ['posts']),
@@ -59,6 +51,10 @@ export default {
     activePost() {
       const { $route, posts } = this
       return posts[$route.params.id]
+    },
+    date() {
+      const { activePost } = this
+      return mmt(activePost.createTime).format('LLLL')
     },
     activeClass() {
       const { name } = this.$route
@@ -75,12 +71,18 @@ export default {
       const { $router, $route } = this
       const { query } = $route
       if (tag.text === query.tag) {
-        this.$nextTick(() => $router.push({ ...query, tag: '' }))
+        $router.push({ query: { ...query, tag: '' } })
       }
     },
     doSearch() {
-      if (this.collapse) {
+      const { collapse, searchText, $router, $route } = this
+      if (collapse) {
         this.collapse = false
+      }
+      if (searchText) {
+        $router.push({
+          query: { ...$route.query, contentChunk: searchText }
+        })
       }
     }
   }

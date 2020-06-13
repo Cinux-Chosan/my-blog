@@ -19,7 +19,6 @@
       </v-list>
     </v-col>
     <v-col :cols="4">
-      {{ activeId }}
       <v-treeview
         hoverable
         activatable
@@ -71,9 +70,7 @@ export default {
   },
 
   data() {
-    return {
-      activeId: ' '
-    }
+    return {}
   },
 
   computed: {
