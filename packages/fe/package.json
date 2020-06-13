@@ -20,6 +20,7 @@
     "@toast-ui/editor-plugin-uml": "^1.0.0",
     "@toast-ui/vue-editor": "^2.1.2",
     "@toast-ui/vue-grid": "^4.13.0",
+    "axios": "^0.19.2",
     "highlight.js": "^10.0.3",
     "moment": "^2.26.0",
     "nuxt": "^2.0.0"

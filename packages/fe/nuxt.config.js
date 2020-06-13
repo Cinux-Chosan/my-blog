@@ -4,8 +4,11 @@ import cert from '../../config/cert'
 import path from 'path'
 import QnUplaoder from './webpack_plugin/QnUpload'
 
-const { serverUrl, serverPort, serverPrefix } = globalConfig
-const { qnConfig } = cert
+const { serverUrl, serverPort, serverPrefix, fe } = globalConfig
+const { publicPathPrefix, publicPathUrl } = fe
+const {
+  qnConfig: { ak, sk }
+} = cert
 const resolveDir = dir => path.join(__dirname, dir)
 
 export default {
@@ -109,22 +112,25 @@ export default {
    */
   build: {
     extractCSS: true,
-    publicPath: 'https://static.blog.dist.chosan.cn',
+    publicPath: path.join(publicPathUrl, publicPathPrefix),
     /*
      ** You can extend webpack config here
      */
     extend(config, ctx) {
-      const alias = {
-        '@utils': resolveDir('utils')
-      }
-      Object.assign(config.resolve.alias, alias)
-      config.plugins.push(
+      const alias = { '@utils': resolveDir('utils') }
+      const plugins = [
+        // 七牛云上传
         new QnUplaoder({
-          scope: 'blog-dist-chosan-cn',
-          ak: qnConfig.ak,
-          sk: qnConfig.sk
+          bucket: 'blog-dist-chosan-cn',
+          publicPathPrefix,
+          delBeforeUpload: true,
+          ak,
+          sk
         })
-      )
+      ]
+
+      Object.assign(config.resolve.alias, alias)
+      config.plugins.push(...plugins)
     }
   }
 }
