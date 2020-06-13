@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import globalConfig = require('../../../global.config');
+import globalConfig = require('../../../config/global.config');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

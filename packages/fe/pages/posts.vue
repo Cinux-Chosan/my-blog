@@ -3,16 +3,25 @@
     <banner>
       <!-- 具体页面 Banner 信息 -->
       <template v-if="activePost">
-        <h1 class="display-2 font-weight-regular mb-4">{{ activePost.title }}</h1>
+        <h1 class="display-2 font-weight-regular mb-4">
+          {{ activePost.title }}
+        </h1>
         <h6 class="font-italic font-weight-light subtitle-2">
           Posted by {{ activePost.author || 'Chosan' }} on
-          {{date}}
+          {{ date }}
         </h6>
         <chip-list :tags="activePost.tags" />
       </template>
       <template v-if="$route.name === 'posts'">
         <v-toolbar :collapse="collapse" dense floating class="postsToolBar">
-          <v-text-field autofocus hide-details single-line v-model="searchText" v-if="!collapse"></v-text-field>
+          <v-text-field
+            autofocus
+            hide-details
+            single-line
+            v-model="searchText"
+            @blur="doSearch"
+            v-if="!collapse"
+          ></v-text-field>
           <v-btn icon @click="doSearch">
             <v-icon>mdi-magnify</v-icon>
           </v-btn>
@@ -35,6 +44,7 @@ import Banner from '@/components/Banner'
 import ChipList from '@/components/ChipList'
 import { mapState, mapGetters } from 'vuex'
 import DialNav from '@/components/DialNav'
+import { debounce } from '@utils'
 
 export default {
   components: { ChipList, DialNav, Banner },
@@ -79,16 +89,15 @@ export default {
         $router.push({ query: { ...query, tag: '' } })
       }
     },
+    @debounce(100)
     doSearch() {
       const { collapse, searchText, $router, $route } = this
       if (collapse) {
         this.collapse = false
       }
-      if (searchText) {
-        $router.push({
-          query: { ...$route.query, contentChunk: searchText }
-        })
-      }
+      $router.push({
+        query: { ...$route.query, contentChunk: searchText }
+      })
     }
   }
 }

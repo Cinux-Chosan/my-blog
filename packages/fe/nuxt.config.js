@@ -1,9 +1,11 @@
 import colors from 'vuetify/es5/util/colors'
-import globalConfig from '../../global.config'
+import globalConfig from '../../config/global.config'
+import cert from '../../config/cert'
 import path from 'path'
+import QnUplaoder from './webpack_plugin/QnUpload'
 
 const { serverUrl, serverPort, serverPrefix } = globalConfig
-
+const { qnConfig } = cert
 const resolveDir = dir => path.join(__dirname, dir)
 
 export default {
@@ -81,9 +83,6 @@ export default {
     [serverPrefix]: `${serverUrl}:${serverPort}`
   },
 
-  router: {
-    // prefetchLinks: false
-  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -110,6 +109,7 @@ export default {
    */
   build: {
     extractCSS: true,
+    publicPath: 'https://static.blog.dist.chosan.cn',
     /*
      ** You can extend webpack config here
      */
@@ -118,6 +118,13 @@ export default {
         '@utils': resolveDir('utils')
       }
       Object.assign(config.resolve.alias, alias)
+      config.plugins.push(
+        new QnUplaoder({
+          scope: 'blog-dist-chosan-cn',
+          ak: qnConfig.ak,
+          sk: qnConfig.sk
+        })
+      )
     }
   }
 }

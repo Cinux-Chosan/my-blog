@@ -105,3 +105,57 @@ export function createNavByHtml(el) {
 
   return items
 }
+
+/**
+ * debounce decorator
+ * @param {number} 毫秒时间
+ * @param {any} 分组类型，使用 truthy 值，默认以 this 进行分组
+ */
+export function debounce(time, groupBy) {
+  const ctxs = new Map()
+
+  return function(obj, name, desc) {
+    // 根据作用域进行区分
+    const fn = desc.value
+    return {
+      ...desc,
+      value: function(...args) {
+        // 添加对 promise 的支持，从而可以准确控制 debouce 执行的时间
+        // 相比于每次返回同一个 promise 而言，每次新返回一个 promise 可以防止在使用的时候某一方添加 .then 导致所有使用方返回值异常或者被 reject
+        return new Promise((resolve, reject) => {
+          const key = groupBy || this
+          let info = ctxs.get(key)
+
+          if (!info) {
+            info = {
+              timeId: null,
+              resolves: [],
+              rejects: [],
+              resolve(v) {
+                this.resolves.forEach(res => res(v))
+              },
+              reject(error) {
+                this.rejects.forEach(rej => rej(error))
+              }
+            }
+            ctxs.set(key, info)
+          }
+
+          info.resolves.push(resolve)
+          info.rejects.push(reject)
+
+          clearTimeout(info.timeId)
+          info.timeId = setTimeout(async () => {
+            ctxs.delete(key)
+            try {
+              const ret = await fn.apply(this, args)
+              info.resolve(ret)
+            } catch (error) {
+              info.reject(error)
+            }
+          }, time)
+        })
+      }
+    }
+  }
+}
