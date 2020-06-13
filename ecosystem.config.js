@@ -35,8 +35,8 @@ module.exports = {
       ssh_options: "StrictHostKeyChecking=no",
       repo: "git@github.com:Cinux-Chosan/my-blog.git",
       path: "/var/www/my-blog",
-      "post-deploy": `\
-        && yarn
+      "post-deploy": `yarn \
+        && yarn \
         \`# 构建前端代码\` \
         && yarn fe:build\
         && echo 前端构建完成 \
