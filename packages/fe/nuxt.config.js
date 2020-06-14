@@ -135,7 +135,6 @@ export default {
   build: {
     extractCSS: true,
     publicPath: new URL(publicPathPrefix, publicPathUrl).toString(),
-    parallel: true,
     /*
      ** You can extend webpack config here
      */
