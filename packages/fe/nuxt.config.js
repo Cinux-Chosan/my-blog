@@ -147,6 +147,11 @@ export default {
   build: {
     extractCSS: true,
     publicPath: new URL(publicPathPrefix, publicPathUrl).toString(),
+    typescript: {
+      typeCheck: {
+        memoryLimit: 512
+      }
+    },
     /*
      ** You can extend webpack config here
      */
