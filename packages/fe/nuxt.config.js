@@ -146,9 +146,7 @@ export default {
     extractCSS: true,
     publicPath: new URL(publicPathPrefix, publicPathUrl).toString(),
     typescript: {
-      typeCheck: {
-        memoryLimit: 512
-      },
+      typeCheck: false,
       memoryLimit: 300
     },
     /*
