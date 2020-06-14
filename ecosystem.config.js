@@ -35,6 +35,7 @@ module.exports = {
       ssh_options: "StrictHostKeyChecking=no",
       repo: "git@github.com:Cinux-Chosan/my-blog.git",
       path: "/var/www/my-blog",
+      // nuxt 服务端构建占用内存过大导致服务器内存不足会 kill 掉进程，因此采取本地构建的方法
       "post-deploy": `echo ${"-".repeat(20)} post-deploy begin ${"-".repeat(20)}\
         && yarn \
         \`# 构建前端代码\` \
