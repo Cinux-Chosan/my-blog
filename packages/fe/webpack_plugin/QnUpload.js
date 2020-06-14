@@ -1,5 +1,7 @@
 const qiniu = require('qiniu')
 const path = require('path')
+const fs = require('fs')
+
 let compileCount = 0
 const del = []
 const upload = []
@@ -45,11 +47,15 @@ module.exports = class QnUploader {
     const { mac, config } = this
     return new qiniu.rs.BucketManager(mac, config)
   }
+
+  get formUploader() {
+    return new qiniu.form_up.FormUploader(this.config)
+  }
   apply(compiler) {
     console.log('create plugin')
 
     if ('production' !== process.env.NODE_ENV) return
-    const { config, token, delBeforeUpload, publicPathPrefix } = this
+    const { delBeforeUpload, publicPathPrefix } = this
     compiler.hooks.emit.tap('qiniuUploader', async compilation => {
       const assets = compilation.getAssets()
       ++compileCount
@@ -62,7 +68,7 @@ module.exports = class QnUploader {
         if (assets.hasOwnProperty(key)) {
           const asset = assets[key]
           upload.push({
-            filename: path.join(publicPathPrefix, asset.name),
+            filename: asset.name,
             content: asset.source.source()
           })
         }
@@ -71,8 +77,6 @@ module.exports = class QnUploader {
         this.deleteAll(del)
         upload.forEach(({ filename, content }) => {
           this.uploadOne({
-            token,
-            config,
             filename,
             content
           })
@@ -80,21 +84,59 @@ module.exports = class QnUploader {
       }
     })
   }
-  uploadOne({ filename, content, config, token }) {
-    const formUploader = new qiniu.form_up.FormUploader(config)
-    const putExtra = new qiniu.form_up.PutExtra()
-    formUploader.put(token, filename, content, putExtra, (err, body, info) => {
-      if (err) {
-        throw err
-      }
-      if (info.statusCode == 200) {
-        const { key: filename } = body
-        console.log(`文件\t${filename}\t上传成功`)
-      } else {
-        console.log(info.statusCode)
-        console.log(body)
-      }
+  async uploadDir(dir) {
+    if (this.delBeforeUpload) {
+      this.cleanBucket()
+    }
+    fs.readdir(dir, 'utf8', (err, files) => {
+      console.log('file', files);
+
+      if (err) throw err
+      files.forEach(file =>
+
+        this.uploadOne({
+          filename: file,
+          content: path.join(dir, file),
+          type: 'file'
+        })
+      )
     })
+  }
+  async cleanBucket() {
+    const list = await this.listBucket()
+    return this.deleteAll(list)
+  }
+  uploadOne({ filename, content, type = 'bytes' }) {
+    const { formUploader, token, publicPathPrefix } = this
+    const putExtra = new qiniu.form_up.PutExtra()
+    let method
+    switch (type) {
+      case 'file':
+        method = 'putFile'
+      case 'bytes':
+      default:
+        method = 'put'
+        break
+    }
+    const fullname = path.join(publicPathPrefix, filename)
+    formUploader[method](
+      token,
+      fullname,
+      content,
+      putExtra,
+      (err, body, info) => {
+        if (err) {
+          throw err
+        }
+        if (info.statusCode == 200) {
+          const { key: filename } = body
+          console.log(`文件\t${filename}\t上传成功`)
+        } else {
+          console.log(info.statusCode)
+          console.log(body)
+        }
+      }
+    )
   }
 
   listBucket() {

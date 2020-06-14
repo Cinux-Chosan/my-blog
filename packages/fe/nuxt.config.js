@@ -108,6 +108,21 @@ export default {
       }
     }
   },
+
+  hooks: {
+    build: {
+      done() {
+        const qnUplaoder = new QnUplaoder({
+          bucket: 'blog-dist-chosan-cn',
+          publicPathPrefix,
+          delBeforeUpload: true,
+          ak,
+          sk
+        })
+        qnUplaoder.uploadDir(path.join(__dirname, '.nuxt/dist/client'))
+      }
+    }
+  },
   /*
    ** Build configuration
    */
@@ -119,19 +134,7 @@ export default {
      */
     extend(config, ctx) {
       const alias = { '@utils': resolveDir('utils') }
-      const plugins = [
-        // 七牛云上传
-        new QnUplaoder({
-          bucket: 'blog-dist-chosan-cn',
-          publicPathPrefix,
-          delBeforeUpload: true,
-          ak,
-          sk
-        })
-      ]
-
       Object.assign(config.resolve.alias, alias)
-      config.plugins.push(...plugins)
     }
   }
 }
