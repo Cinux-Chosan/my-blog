@@ -117,7 +117,7 @@ export default {
     build: {
       done(builder) {
         const { buildDir } = builder.nuxt.options
-        if (process.env !== 'production') return
+        if (process.env.NODE_ENV !== 'production') return
         const qnUplaoder = new QnUplaoder({
           bucket: 'blog-dist-chosan-cn',
           publicPathPrefix,
@@ -125,7 +125,7 @@ export default {
           ak,
           sk
         })
-        qnUplaoder.uploadDir(path.join(__dirname, buildDir, 'dist/client'))
+        qnUplaoder.uploadDir(path.join(buildDir, 'dist/client'))
       }
     }
   },
