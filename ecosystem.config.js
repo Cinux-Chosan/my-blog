@@ -35,7 +35,16 @@ module.exports = {
       ssh_options: "StrictHostKeyChecking=no",
       repo: "git@github.com:Cinux-Chosan/my-blog.git",
       path: "/var/www/my-blog",
-      "post-deploy": `echo post-deploy begin`,
+      "post-deploy": `echo post-deploy begin\
+        && yarn \
+        \`# 构建前端代码\` \
+        && yarn fe:build \
+        && echo 前端构建完成 \
+        \`# 构建前端代码\` \
+        && yarn server:build \
+        && pm2 restart ecosystem.config.js \
+        && echo 服务启动成功!
+        `,
     },
   },
 };
