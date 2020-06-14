@@ -57,7 +57,19 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ['@nuxtjs/vuetify', '@nuxt/typescript-build'],
+  buildModules: [
+    '@nuxtjs/vuetify',
+    [
+      '@nuxt/typescript-build',
+      {
+        typeCheck: {
+          memoryLimit: 512,
+          workers: 1
+        },
+        ignoreNotFoundWarnings: false
+      }
+    ]
+  ],
   /*
    ** Nuxt.js modules
    */

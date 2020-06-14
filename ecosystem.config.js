@@ -39,8 +39,8 @@ module.exports = {
       "post-deploy": `echo ${"-".repeat(20)} post-deploy begin ${"-".repeat(20)}\
         && yarn \
         \`# 构建前端代码\` \
-        \`# && yarn fe:build\` \
-        \`# && echo 前端构建完成\` \
+        && yarn fe:build\` \
+        && echo 前端构建完成\` \
         \`# 构建后端代码\` \
         && yarn server:build \
         && pm2 restart ecosystem.config.js \
