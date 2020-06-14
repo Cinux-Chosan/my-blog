@@ -15,7 +15,7 @@
     "server:build": "yarn workspace server build",
     "server:start": "yarn workspace server start:prod",
     "server:prd": "yarn workspace server prod",
-    "deploy": "yarn fe:build && pm2 deploy production"
+    "deploy": "pm2 deploy production"
   },
   "dependencies": {
     "core-js": "2.6.5"
