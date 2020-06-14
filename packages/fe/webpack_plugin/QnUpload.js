@@ -116,6 +116,7 @@ module.exports = class QnUploader {
     switch (type) {
       case 'file':
         method = 'putFile'
+        break
       case 'bytes':
       default:
         method = 'put'
