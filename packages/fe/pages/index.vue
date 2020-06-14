@@ -2,7 +2,7 @@
   <v-row>
     <v-col class="text-center">
       <nuxt-link to="/posts" class="noDecoration">
-        <blockquote class="blockquote motto">
+        <blockquote class="motto">
           {{ motto }}
           <footer>
             <small>
@@ -54,7 +54,7 @@ export default Vue.extend({
 
 <style scoped>
 .motto {
-  margin-top: 180px;
+  margin-top: 120px;
   color: #fff;
 }
 </style>
