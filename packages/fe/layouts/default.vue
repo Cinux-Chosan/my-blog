@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <v-content class="blogContent">
+    <v-main class="blogContent">
       <nuxt />
-    </v-content>
+    </v-main>
   </v-app>
 </template>

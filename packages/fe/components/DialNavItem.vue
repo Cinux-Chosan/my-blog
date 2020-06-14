@@ -1,13 +1,12 @@
 <template>
   <v-btn
-    v-model="fab"
     dark
     fab
     nuxt
     v-bind="{ ...$attrs, ...navObj.attrs }"
     v-on="navObj.on"
   >
-    <slot v-bind="fab">
+    <slot>
       <v-icon>{{ navObj.text }}</v-icon>
     </slot>
   </v-btn>
@@ -21,7 +20,6 @@ export default {
   },
   data() {
     return {
-      fab: false
     }
   }
 }

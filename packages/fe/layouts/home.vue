@@ -2,11 +2,11 @@
   <v-app>
     <!-- page banner -->
     <banner />
-    <v-content class="blogContent">
+    <v-main class="blogContent">
       <v-container class="blogContainer">
         <nuxt />
       </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 

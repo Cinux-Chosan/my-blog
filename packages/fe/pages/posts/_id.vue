@@ -1,22 +1,24 @@
 <template>
   <v-row>
-    <v-col :cols="8">
-      <viewer :initialValue="post.content" :options="editorOptions">
+    <v-col :cols="12" :sm="8" order="last" order-sm="first">
+      <viewer :initialValue="post.content" :options="editorOptions" v-if="showViewer">
         <!-- for SEO -->
         <section class="d-none">
           <article v-html="post.html"></article>
         </section>
       </viewer>
     </v-col>
-    <v-col :cols="4">
+    <v-col :cols="12" :sm="4" order="first" order-sm="last">
       <v-treeview
-        :open="flattenedNav.map(nav => nav.id)"
         hoverable
         activatable
-        @update:active="goToElement"
+        :open-all="isOpenAll"
         :items="postNav"
         item-text="text"
+        @update:active="goToElement"
+        v-if="flattenedNav.length"
       />
+      <!-- :open="isSmall && flattenedNav.map(nav => nav.id)" -->
       <!-- @update:open="goToElement" -->
     </v-col>
   </v-row>
@@ -47,12 +49,14 @@ export default Vue.extend({
     return {
       postNav: [],
       post: { title: '', content: '', html: '', tags: [], author: '' },
-      editorOptions: Vue.editorOptions
+      editorOptions: Vue.editorOptions,
+      showViewer: true
     }
   },
   mounted() {
     this.postNav = createNavByHtml('.tui-editor-contents')
   },
+
   async asyncData({ params, query, app, store }) {
     const { id } = params
     if (id) {
@@ -72,6 +76,10 @@ export default Vue.extend({
     ...mapGetters('posts', ['posts']),
     flattenedNav() {
       return [...traverse(this.postNav)]
+    },
+
+    isOpenAll() {
+      return !this.$vuetify.breakpoint.xs
     }
   },
   methods: {

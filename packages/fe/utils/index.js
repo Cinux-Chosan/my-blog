@@ -61,6 +61,7 @@ export function* traverse(roots, opt = {}) {
 
 export function createNavByHtml(el) {
   el = querySelector(el)
+  if (!el) return;
   const items = []
   const reg = /H([1-6]{1})/
   ;[...el.children]

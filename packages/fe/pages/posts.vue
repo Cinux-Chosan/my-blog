@@ -30,7 +30,7 @@
       </template>
     </banner>
     <v-container class="blogContainer">
-      <v-responsive width="1180px" class="mx-auto">
+      <v-responsive max-width="1180px" class="mx-auto">
         <nuxt />
       </v-responsive>
     </v-container>

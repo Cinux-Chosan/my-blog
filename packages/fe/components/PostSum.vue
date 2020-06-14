@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" width="400">
+  <v-card class="mx-auto" :max-width="maxWidth">
     <v-img
       class="white--text align-end"
       height="200px"
@@ -34,6 +34,14 @@ export default {
     post: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    maxWidth() {
+      const {
+        breakpoint: { width }
+      } = this.$vuetify
+      return Math.min(400, width - 60)
     }
   }
 }

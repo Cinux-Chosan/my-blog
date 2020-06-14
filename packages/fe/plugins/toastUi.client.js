@@ -21,11 +21,22 @@ hljs.registerLanguage('javascript', javascript)
 hljs.registerLanguage('js', javascript)
 
 export default (ctx, inject) => {
+  console.log('ctx', ctx)
+  const { $vuetify } = ctx
+  const {
+    breakpoint: { width: windowWidth }
+  } = $vuetify
+  const chartWidth = Math.min(windowWidth - 60, 350)
   Vue.editorOptions = {
     plugins: [
       uml,
       colorSyntax,
-      [chart, { minHeight: 200, width: 350 }],
+      [
+        chart,
+        {
+          /* minHeight: 200, maxHeight: 500, width: chartWidth */
+        }
+      ],
       [codeSyntaxHighlight, { hljs }]
     ]
   }

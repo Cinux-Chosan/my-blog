@@ -1,6 +1,6 @@
 <template>
   <v-row class="pagePosts">
-    <v-col :cols="8">
+    <v-col :cols="12" :sm="8" order="last" order-sm="first">
       <v-list>
         <template v-for="post in postList">
           <v-list-item :key="post._id" :id="`post-${post._id}`">
@@ -18,7 +18,7 @@
         </template>
       </v-list>
     </v-col>
-    <v-col :cols="4">
+    <v-col :cols="12" :sm="4" order="first" order-sm="last">
       <v-treeview
         hoverable
         activatable

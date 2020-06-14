@@ -7,7 +7,7 @@
       :nuxt="nav"
       :to="{ name: 'posts', query:{ ...$route.query, tag: tag.text }}"
       @click="$emit('click', tag)"
-      class="mx-2 my-6 tag"
+      class="mx-2 mt-4 mb-2 tag"
     >{{ tag.text }}</v-chip>
   </div>
 </template>

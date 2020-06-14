@@ -1,23 +1,14 @@
 <template>
   <div class="dial dialNav" v-if="navs && navs.length">
-    <v-speed-dial
-      v-model="fab"
-      direction="top"
-      :open-on-hover="true"
-      :transition="transition"
-      v-if="subNavs && subNavs.length"
-    >
+    <v-speed-dial v-model="fab" direction="top" :transition="transition">
       <template v-slot:activator>
-        <dial-nav-item :navObj="mainNav" #default="fab">
-          <v-icon v-if="fab">{{ mainNav.text }}</v-icon>
-          <v-icon v-else>mdi-home</v-icon>
-        </dial-nav-item>
+        <v-btn v-model="fab" color="blue darken-2" dark fab>
+          <v-icon v-if="fab">mdi-close</v-icon>
+          <v-icon v-else>mdi-plus</v-icon>
+        </v-btn>
       </template>
-      <dial-nav-item small v-for="nav in subNavs" :key="nav.text" :navObj="nav" />
+      <dial-nav-item fab small v-for="nav in navs" :key="nav.text" :navObj="nav" />
     </v-speed-dial>
-    <v-btn fab dark nuxt :to="mainNav.to" :color="mainNav.color" v-else>
-      <v-icon>{{ mainNav.text }}</v-icon>
-    </v-btn>
   </div>
 </template>
 
@@ -48,12 +39,6 @@ export default {
     }
   },
   computed: {
-    mainNav() {
-      return this.navs[0]
-    },
-    subNavs() {
-      return this.navs.slice(1)
-    },
     navs() {
       const { $route } = this
       const { name } = $route
