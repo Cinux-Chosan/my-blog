@@ -3,6 +3,7 @@ import globalConfig from '../../config/global.config'
 import cert from '../../config/cert'
 import path from 'path'
 import QnUplaoder from './webpack_plugin/QnUpload'
+import { URL } from 'url'
 
 const { serverUrl, serverPort, serverPrefix, fe } = globalConfig
 const { publicPathPrefix, publicPathUrl } = fe
@@ -112,7 +113,7 @@ export default {
    */
   build: {
     extractCSS: true,
-    publicPath: path.join(publicPathUrl, publicPathPrefix),
+    publicPath: new URL(publicPathPrefix, publicPathUrl).toString(),
     /*
      ** You can extend webpack config here
      */
