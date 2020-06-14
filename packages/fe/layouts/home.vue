@@ -2,10 +2,8 @@
   <v-app>
     <!-- page banner -->
     <banner />
-    <v-main class="blogContent">
-      <v-container class="blogContainer">
-        <nuxt />
-      </v-container>
+    <v-main class="blogContent align-center justify-center">
+      <nuxt />
     </v-main>
   </v-app>
 </template>

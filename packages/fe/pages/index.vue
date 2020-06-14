@@ -54,7 +54,6 @@ export default Vue.extend({
 
 <style scoped>
 .motto {
-  margin-top: 120px;
   color: #fff;
 }
 </style>
