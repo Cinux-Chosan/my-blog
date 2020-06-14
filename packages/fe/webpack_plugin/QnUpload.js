@@ -86,14 +86,17 @@ module.exports = class QnUploader {
   }
   async uploadDir(dir) {
     if (this.delBeforeUpload) {
-      this.cleanBucket()
+      try {
+        await this.cleanBucket()
+      } catch (error) {
+        console.error(error)
+      }
     }
     fs.readdir(dir, 'utf8', (err, files) => {
-      console.log('file', files);
+      console.log('file', files)
 
       if (err) throw err
       files.forEach(file =>
-
         this.uploadOne({
           filename: file,
           content: path.join(dir, file),
