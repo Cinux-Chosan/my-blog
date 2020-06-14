@@ -63,9 +63,10 @@ export default {
       '@nuxt/typescript-build',
       {
         typeCheck: {
-          memoryLimit: 512,
+          memoryLimit: 300,
           workers: 1
         },
+        memoryLimit: 300,
         ignoreNotFoundWarnings: false
       }
     ]
@@ -150,7 +151,8 @@ export default {
     typescript: {
       typeCheck: {
         memoryLimit: 512
-      }
+      },
+      memoryLimit: 300
     },
     /*
      ** You can extend webpack config here
