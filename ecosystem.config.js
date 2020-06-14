@@ -35,7 +35,7 @@ module.exports = {
       ssh_options: "StrictHostKeyChecking=no",
       repo: "git@github.com:Cinux-Chosan/my-blog.git",
       path: "/var/www/my-blog",
-      "post-deploy": `echo post-deploy begin\
+      "post-deploy": `echo ${"-".repeat(20)} post-deploy begin ${"-".repeat(20)}\
         && yarn \
         \`# 构建前端代码\` \
         && yarn fe:build \
@@ -43,7 +43,8 @@ module.exports = {
         \`# 构建前端代码\` \
         && yarn server:build \
         && pm2 restart ecosystem.config.js \
-        && echo 服务启动成功!
+        && echo 服务启动成功! \
+        && echo ${"-".repeat(20)} post-deploy end ${"-".repeat(20)}
         `,
     },
   },
