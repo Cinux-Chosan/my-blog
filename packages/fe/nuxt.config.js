@@ -63,7 +63,6 @@ export default {
       '@nuxt/typescript-build',
       {
         typeCheck: false,
-        memoryLimit: 300,
         ignoreNotFoundWarnings: false
       }
     ]
@@ -145,10 +144,7 @@ export default {
   build: {
     extractCSS: true,
     publicPath: new URL(publicPathPrefix, publicPathUrl).toString(),
-    typescript: {
-      typeCheck: false,
-      memoryLimit: 300
-    },
+    parallel: true,
     /*
      ** You can extend webpack config here
      */
