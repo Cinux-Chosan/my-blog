@@ -29,7 +29,7 @@ export class PostService {
    * @param id 文章ID
    * @param status 文章状态，默认查询未删除状态的文章
    */
-  async find(id: string, query: any) {
+  async find(id?: string, query?: any) {
     const queryObj = { status: postStatus.activated } as any;
     const { page = 1, limit = 10 } = query;
     // 匹配 id

@@ -84,7 +84,8 @@ export default {
   },
 
   proxy: {
-    [serverPrefix]: `${serverUrl}:${serverPort}`
+    [serverPrefix]: `${serverUrl}:${serverPort}`,
+    '/sitemap.xml': `${serverUrl}:${serverPort}${serverPrefix}`
   },
 
   /*

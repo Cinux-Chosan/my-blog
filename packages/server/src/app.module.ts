@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { PostsModule } from './modules/post/post.module';
 import { TagsModule } from './modules/tags/tag.module';
 import { UserModule } from './modules/user/user.module';
+import { SitemapModule } from './modules/sitemap/sitemap.module';
 
 @Global()
 @Module({
@@ -13,6 +14,7 @@ import { UserModule } from './modules/user/user.module';
     PostsModule,
     TagsModule,
     UserModule,
+    SitemapModule,
   ],
   controllers: [AppController],
   providers: [AppService],

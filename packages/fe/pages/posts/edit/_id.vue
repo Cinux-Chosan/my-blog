@@ -76,12 +76,15 @@ export default Vue.extend({
       return this.$refs.editor.invoke('getHtml')
     },
     async save() {
-      const { post, getPost, getHtml, id, $axios } = this
+      const { post, getPost, getHtml, id, $axios, $router } = this
       const result = await $axios.$post(`posts/${id}`, {
         ...post,
         content: getPost(),
         html: getHtml()
       })
+      if (result) {
+        $router.push({ params: { id: result } })
+      }
     },
 
     async del() {

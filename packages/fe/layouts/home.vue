@@ -1,7 +1,9 @@
 <template>
   <v-app>
     <!-- page banner -->
-    <banner />
+    <banner>
+      <span class="text-h5 text-md-h1 font-weight-bold">Welcom to Chosan's Home</span>
+    </banner>
     <v-main class="blogContent align-center justify-center">
       <nuxt />
     </v-main>

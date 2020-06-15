@@ -2,7 +2,4 @@
 User-agent: *
 Disallow: 
 Disallow: /posts/edit
-Sitemap: http://chosan.cn/sitemap.xml
 Sitemap: https://chosan.cn/sitemap.xml
-Sitemap: http://chosan.cn/sitemap.html
-Sitemap: https://chosan.cn/sitemap.html
