@@ -66,7 +66,7 @@ export function* traverse(
       beforeNode(node, roots, opt)
       yield node
       const { [childProp]: children } = node
-      if (children) yield * traverse(children, opt)
+      if (children) yield* traverse(children, opt)
     }
   }
 }
@@ -74,6 +74,7 @@ export function* traverse(
 export function createNavByHtml(el: Selector) {
   el = querySelector(el)
   if (!el) return
+  const navs: any[] = []
   const reg = /H([1-6]{1})/
   const stack = new Stack<any>()
   Array.from(el.children).forEach(child => {
@@ -92,12 +93,14 @@ export function createNavByHtml(el: Selector) {
       while (stack.peak?.level >= level) stack.pop()
       if (stack.peak) {
         stack.peak.children.push(navObj)
+        stack.push(navObj)
       } else {
         stack.push(navObj)
+        navs.push(navObj)
       }
     }
   })
-  return [...stack]
+  return navs
 }
 
 /**
@@ -108,7 +111,7 @@ export function createNavByHtml(el: Selector) {
 export function debounce(time: number, groupBy: any) {
   const ctxs = new Map()
 
-  return function(
+  return function (
     obj: ObjectConstructor,
     name: string,
     desc: PropertyDescriptor
@@ -117,7 +120,7 @@ export function debounce(time: number, groupBy: any) {
     const fn = desc.value
     return {
       ...desc,
-      value: function(...args: any[]) {
+      value: function (...args: any[]) {
         // 添加对 promise 的支持，从而可以准确控制 debouce 执行的时间
         // 相比于每次返回同一个 promise 而言，每次新返回一个 promise 可以防止在使用的时候某一方添加 .then 导致所有使用方返回值异常或者被 reject
         return new Promise((resolve, reject) => {

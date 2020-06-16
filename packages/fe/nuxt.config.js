@@ -141,6 +141,7 @@ export default {
      */
     extend(config, ctx) {
       const alias = { '@utils': resolveDir('utils') }
+      config.resolve.extensions.push('.ts')
       Object.assign(config.resolve.alias, alias)
     }
   }
