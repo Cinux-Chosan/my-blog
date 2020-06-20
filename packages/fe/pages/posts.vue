@@ -20,6 +20,7 @@
             single-line
             v-model="searchText"
             @blur="doSearch"
+            @keydown.enter="doSearch"
             v-if="!collapse"
           ></v-text-field>
           <v-btn icon @click="doSearch">
