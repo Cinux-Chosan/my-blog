@@ -21,7 +21,7 @@ export class UploadController {
   constructor(
     @Inject('CONFIG') private config: any,
     @Inject('CERT') private cert: any,
-  ) {}
+  ) { }
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
@@ -33,7 +33,8 @@ export class UploadController {
     const { qnCert } = cert;
     // 处理空格、中文等情况
     const filename = encodeURIComponent(originalname);
-    const fullDest = path.join(apiPrefix, staticPath, dest, filename);
+    let fullDest = path.join(apiPrefix, staticPath, dest, filename);
+    fullDest = fullDest.startsWith('/') ? fullDest.substr(1) : fullDest;
     const localDest = path.join(localUploadDir, fullDest);
     const saveLocal = fsExtra.outputFile(localDest, buffer);
     const uploader = new QnUplaoder({ ...qnCert, ...qnConfig });
@@ -41,7 +42,7 @@ export class UploadController {
       saveLocal,
       uploader.uploadOne({ filename: fullDest, content: buffer }),
     ]);
-    return fullDest;
+    return `/${fullDest}`;
   }
 
   @Get(`${staticPath}/*`)

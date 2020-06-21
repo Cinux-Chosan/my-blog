@@ -24,6 +24,9 @@ code {
   padding-left: 8px !important;
   padding-right: 8px !important;
   box-shadow: none !important;
+  &[data-language] {
+    padding-left: 0 !important;
+  }
 }
 
 pre[class*='lang-'] {
