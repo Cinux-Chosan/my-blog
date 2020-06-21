@@ -38,7 +38,18 @@ export default (ctx, inject) => {
         }
       ],
       [codeSyntaxHighlight, { hljs }]
-    ]
+    ],
+    hooks: {
+      async addImageBlobHook(file, cb) {
+        console.log(ctx)
+        const formData = new FormData()
+        formData.append('file', file)
+        const result = await ctx.$axios.$post('/upload', formData, {
+          headers: { 'content-type': 'multipart/form-data' }
+        })
+        cb(result)
+      }
+    }
   }
   Vue.use({
     install(Vue) {

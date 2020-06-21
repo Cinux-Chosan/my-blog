@@ -96,7 +96,9 @@ export default {
       await this.$vuetify.goTo(`#post-${post._id}`)
     },
     async activeTitle([id]) {
-      await this.$vuetify.goTo(`#post-${id}`)
+      if (id) {
+        await this.$vuetify.goTo(`#post-${id}`)
+      }
     }
   }
 }

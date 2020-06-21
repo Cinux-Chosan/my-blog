@@ -6,6 +6,9 @@ import { PostsModule } from './modules/post/post.module';
 import { TagsModule } from './modules/tags/tag.module';
 import { UserModule } from './modules/user/user.module';
 import { SitemapModule } from './modules/sitemap/sitemap.module';
+import { UploadModule } from './modules/upload/upload.module';
+import globalConfig = require('../../../config/global.config');
+import cert = require('../../../config/cert');
 
 @Global()
 @Module({
@@ -15,9 +18,16 @@ import { SitemapModule } from './modules/sitemap/sitemap.module';
     TagsModule,
     UserModule,
     SitemapModule,
+    UploadModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
-  exports: [UserModule]
+  providers: [AppService, {
+    provide: 'CONFIG',
+    useValue: globalConfig
+  }, {
+      provide: 'CERT',
+      useValue: cert
+    }],
+  exports: [UserModule, 'CONFIG', 'CERT']
 })
 export class AppModule { }

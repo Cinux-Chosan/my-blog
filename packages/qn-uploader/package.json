@@ -1,0 +1,9 @@
+{
+  "name": "qn-uploader",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "qiniu": "^7.3.1"
+  }
+}

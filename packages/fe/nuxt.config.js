@@ -2,13 +2,13 @@ import colors from 'vuetify/es5/util/colors'
 import globalConfig from '../../config/global.config'
 import cert from '../../config/cert'
 import path from 'path'
-import QnUplaoder from './webpack_plugin/QnUpload'
+import QnUplaoder from 'qn-uploader'
 import { URL } from 'url'
 
 const { serverUrl, serverPort, serverPrefix, fe } = globalConfig
 const { publicPathPrefix, publicPathUrl } = fe
 const {
-  qnConfig: { ak, sk }
+  qnCert: { ak, sk }
 } = cert
 const resolveDir = dir => path.join(__dirname, dir)
 
@@ -121,7 +121,7 @@ export default {
         if (process.env.NODE_ENV !== 'production') return
         const qnUplaoder = new QnUplaoder({
           bucket: 'blog-dist-chosan-cn',
-          publicPathPrefix,
+          prefix: publicPathPrefix,
           delBeforeUpload: true,
           ak,
           sk
