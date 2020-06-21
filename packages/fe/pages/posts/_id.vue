@@ -136,7 +136,7 @@ export default Vue.extend({
 
 ::v-deep .activeTitle {
   &,
-  a {
+  * {
     color: #fb8c00 !important;
   }
 }
