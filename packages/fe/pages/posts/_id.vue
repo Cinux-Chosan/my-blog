@@ -1,18 +1,29 @@
 <template>
   <v-row>
     <v-col :cols="12" :sm="8" order="last" order-sm="first">
-      <viewer :initialValue="post.content" :options="editorOptions" v-if="showViewer">
+      <viewer
+        :initialValue="post.content"
+        :options="editorOptions"
+        v-if="showViewer"
+      >
         <!-- for SEO -->
         <section class="d-none">
           <article v-html="post.html"></article>
         </section>
       </viewer>
     </v-col>
-    <v-col :cols="12" :sm="4" order="first" order-sm="last">
+    <v-col
+      :cols="12"
+      :sm="4"
+      order="first"
+      order-sm="last"
+      :class="mdAndUp ? 'fixedNav' : ''"
+    >
       <v-treeview
-        hoverable
         activatable
         :open-all="isOpenAll"
+        active-class="activeNav"
+        transition
         :items="postNav"
         item-text="text"
         @update:active="goToElement"
@@ -77,7 +88,9 @@ export default Vue.extend({
     flattenedNav() {
       return [...traverse(this.postNav)]
     },
-
+    mdAndUp() {
+      return this.$vuetify.breakpoint.mdAndUp
+    },
     isOpenAll() {
       return !this.$vuetify.breakpoint.xs
     }
@@ -89,7 +102,7 @@ export default Vue.extend({
         const { el, id: localId } = nav
         if (localId === id) {
           el.classList.add('activeTitle')
-          $vuetify.goTo(el)
+          $vuetify.goTo(el, { offset: 12 })
         } else {
           el.classList.remove('activeTitle')
         }
@@ -103,16 +116,28 @@ export default Vue.extend({
 .bannerBlock {
   font-size: 55px;
 }
+.fixedNav {
+  position: fixed;
+  right: 0;
+}
+.activeNav {
+}
+
+::v-deep .v-treeview-node {
+  float: left;
+  clear: both;
+}
 ::v-deep .v-treeview-node__label {
   cursor: pointer;
   &:hover {
     color: #fb8c00;
   }
 }
-</style>
 
-<style >
-.activeTitle {
-  color: #fb8c00 !important;
+::v-deep .activeTitle {
+  &,
+  a {
+    color: #fb8c00 !important;
+  }
 }
 </style>

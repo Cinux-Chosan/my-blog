@@ -1,13 +1,16 @@
+const path = require("path");
 exports = module.exports = {
-  serverPort: 3001,
-  serverPrefix: "/api",
-  serverUrl: "http://localhost",
-  uploadDir: "/var/blog-upload/",
+  server: {
+    port: 3001,
+    prefix: "/api",
+    url: "http://localhost",
+    uploadDir: path.join(__dirname, "../../")
+  },
   fe: {
     publicPathPrefix: "post-dist",
-    publicPathUrl: "https://static.blog.dist.chosan.cn",
+    publicPathUrl: "https://static.blog.dist.chosan.cn"
   },
   qnConfig: {
-    bucket: "blog-dist-chosan-cn",
-  },
+    bucket: "blog-dist-chosan-cn"
+  }
 };

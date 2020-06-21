@@ -6,7 +6,7 @@
     :items="proxyTags"
     :search-input.sync="search"
     hide-selected
-    label="Search for an tag"
+    label="Search for a tag"
     multiple
     dense
     small-chips

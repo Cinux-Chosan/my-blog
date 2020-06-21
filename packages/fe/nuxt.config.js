@@ -5,7 +5,8 @@ import path from 'path'
 import QnUplaoder from 'qn-uploader'
 import { URL } from 'url'
 
-const { serverUrl, serverPort, serverPrefix, fe } = globalConfig
+const { server, fe } = globalConfig
+const { url: serverUrl, port: serverPort, prefix: serverPrefix } = server
 const { publicPathPrefix, publicPathUrl } = fe
 const {
   qnCert: { ak, sk }

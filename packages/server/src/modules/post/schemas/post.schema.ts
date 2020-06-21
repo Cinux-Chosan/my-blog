@@ -1,10 +1,14 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { postStatus } from '../dto/create-post-dto';
+import { postStatus, postType } from '../dto/create-post-dto';
 import { TagSchema } from '../../tags/schemas/tag.schema';
 import { CreateTagDto } from '../../tags/dto/create-tag-dto';
 @Schema()
 export class Post extends Document {
+  // 文章类型
+  @Prop({ default: postType.post })
+  type: string;
+
   // 文章作者
   @Prop({ default: 'Chosan' })
   author: string;

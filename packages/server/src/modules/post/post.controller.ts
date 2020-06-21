@@ -1,13 +1,32 @@
-import { Controller, Get, Param, Post, Body, Delete, UseGuards, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  Delete,
+  UseGuards,
+  Query,
+} from '@nestjs/common';
 import { PostService } from './post.service';
-import { CreatePostDto, UpdatePostDto, QueryPostDto, postStatus } from './dto/create-post-dto';
+import {
+  CreatePostDto,
+  UpdatePostDto,
+  QueryPostDto,
+  postStatus,
+  postType,
+} from './dto/create-post-dto';
 import { AuthGuard } from 'src/guards/auth.guard';
 
-
 @Controller('posts')
-
 export class PostController {
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService) {}
+
+  @Get('types')
+  getPostType() {
+    return Object.values(postType);
+  }
+
   @Get(':id?')
   async queryPosts(@Param('id') id: string, @Query() query: QueryPostDto) {
     return this.postService.find(id, query);

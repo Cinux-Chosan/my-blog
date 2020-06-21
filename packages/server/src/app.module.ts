@@ -7,8 +7,8 @@ import { TagsModule } from './modules/tags/tag.module';
 import { UserModule } from './modules/user/user.module';
 import { SitemapModule } from './modules/sitemap/sitemap.module';
 import { UploadModule } from './modules/upload/upload.module';
-import globalConfig = require('../../../config/global.config');
-import cert = require('../../../config/cert');
+import * as globalConfig from '../../../config/global.config';
+import * as cert from '../../../config/cert';
 
 @Global()
 @Module({
@@ -21,13 +21,17 @@ import cert = require('../../../config/cert');
     UploadModule,
   ],
   controllers: [AppController],
-  providers: [AppService, {
-    provide: 'CONFIG',
-    useValue: globalConfig
-  }, {
+  providers: [
+    AppService,
+    {
+      provide: 'CONFIG',
+      useValue: globalConfig,
+    },
+    {
       provide: 'CERT',
-      useValue: cert
-    }],
-  exports: [UserModule, 'CONFIG', 'CERT']
+      useValue: cert,
+    },
+  ],
+  exports: [UserModule, 'CONFIG', 'CERT'],
 })
-export class AppModule { }
+export class AppModule {}

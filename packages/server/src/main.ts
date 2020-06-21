@@ -1,12 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import globalConfig = require('../../../config/global.config');
+import * as globalConfig from '../../../config/global.config';
+const { server } = globalConfig;
+const { prefix, port } = server;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // set global prefix
-  app.setGlobalPrefix(globalConfig.serverPrefix);
+  app.setGlobalPrefix(prefix);
   // listening
-  await app.listen(globalConfig.serverPort);
+  await app.listen(port);
 }
 bootstrap();

@@ -17,9 +17,10 @@ import '../assets/css/global.scss'
 import '../../../node_modules/vuetify/dist/vuetify.css'
 
 import _6f6c098b from '../layouts/default.vue'
+import _2d230f00 from '../layouts/edit.vue'
 import _2d2495d5 from '../layouts/home.vue'
 
-const layouts = { "_default": sanitizeComponent(_6f6c098b),"_home": sanitizeComponent(_2d2495d5) }
+const layouts = { "_default": sanitizeComponent(_6f6c098b),"_edit": sanitizeComponent(_2d230f00),"_home": sanitizeComponent(_2d2495d5) }
 
 export default {
   render (h, props) {
