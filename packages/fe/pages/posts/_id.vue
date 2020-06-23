@@ -110,8 +110,22 @@ export default Vue.extend({
       })
     },
     initScript() {
-      const { post } = this
+      const { post, initCommonScript } = this
+      initCommonScript()
       eval(`!function(){${post.scriptCompiled}}()`)
+    },
+    initCommonScript() {
+      const activators = document.querySelectorAll('.J-act')
+      Array.from(activators).forEach(act => {
+        act.addEventListener('click', () => {
+          const targets = act.dataset.targets.split('|')
+          act.classList.add('d-none')
+          targets.forEach(target => {
+            target = document.querySelector(target)
+            target.classList.remove('d-none')
+          })
+        })
+      })
     }
   }
 })

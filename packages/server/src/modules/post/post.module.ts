@@ -8,7 +8,7 @@ const PostSchemaModule = MongooseModule.forFeatureAsync([
   {
     name: Post.name,
     useFactory: () => {
-      PostSchema.pre('save', true,preSaveHook);
+      PostSchema.pre('save', preSaveHook);
       return PostSchema;
     },
   },
@@ -20,4 +20,4 @@ const PostSchemaModule = MongooseModule.forFeatureAsync([
   providers: [PostService],
   exports: [MongooseModule],
 })
-export class PostsModule {}
+export class PostsModule { }
