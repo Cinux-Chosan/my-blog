@@ -46,6 +46,9 @@ export class Post extends Document {
 
   @Prop()
   scriptCompiled: string;
+  
+  @Prop()
+  css: string;
 
   // 创建时间
   @Prop({})

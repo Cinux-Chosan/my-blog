@@ -28,6 +28,7 @@ export class CreatePostDto {
   script?: string;
   // 编译后的关联脚本，用于浏览器执行
   scriptCompiled?: string;
+  css?:string;
 }
 
 export class UpdatePostDto {
@@ -42,6 +43,7 @@ export class UpdatePostDto {
   banners?: string[];
   script?: string;
   scriptCompiled?: string;
+  css?:string;
 }
 
 export class QueryPostDto {

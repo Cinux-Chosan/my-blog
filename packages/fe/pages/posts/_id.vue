@@ -1,7 +1,12 @@
 <template>
   <v-row>
     <v-col :cols="12" :sm="8" order="last" order-sm="first">
-      <viewer :initialValue="post.content" :options="editorOptions" v-if="showViewer">
+      <viewer
+        :initialValue="post.content"
+        :options="editorOptions"
+        @load="initScript"
+        v-if="showViewer"
+      >
         <!-- for SEO -->
         <section class="d-none">
           <article v-html="post.html"></article>
@@ -103,6 +108,10 @@ export default Vue.extend({
           el.classList.remove('activeTitle')
         }
       })
+    },
+    initScript() {
+      const { post } = this
+      eval(`!function(){${post.scriptCompiled}}()`)
     }
   }
 })
