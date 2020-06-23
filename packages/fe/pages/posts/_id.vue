@@ -1,11 +1,7 @@
 <template>
   <v-row>
     <v-col :cols="12" :sm="8" order="last" order-sm="first">
-      <viewer
-        :initialValue="post.content"
-        :options="editorOptions"
-        v-if="showViewer"
-      >
+      <viewer :initialValue="post.content" :options="editorOptions" v-if="showViewer">
         <!-- for SEO -->
         <section class="d-none">
           <article v-html="post.html"></article>
@@ -17,7 +13,7 @@
       :sm="4"
       order="first"
       order-sm="last"
-      :class="mdAndUp ? 'fixedNav' : ''"
+      :class="mdAndUp && flattenedNav.length <= 10 ? 'fixedNav' : ''"
     >
       <v-treeview
         activatable

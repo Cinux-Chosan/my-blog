@@ -33,7 +33,7 @@
         v-model="page"
         :total-visible="5"
         :length="paginationLen"
-        class="justify-start"
+        class="justify-start float-left"
       ></v-pagination>
     </v-col>
   </v-row>
