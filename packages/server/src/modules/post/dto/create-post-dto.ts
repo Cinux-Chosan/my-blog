@@ -24,6 +24,10 @@ export class CreatePostDto {
   type: postType;
   tags?: CreateTagDto[];
   banners?: string[];
+  // 是否有关联脚本
+  script?: string;
+  // 编译后的关联脚本，用于浏览器执行
+  scriptCompiled?: string;
 }
 
 export class UpdatePostDto {
@@ -36,6 +40,8 @@ export class UpdatePostDto {
   status?: postStatus;
   tags?: CreateTagDto[];
   banners?: string[];
+  script?: string;
+  scriptCompiled?: string;
 }
 
 export class QueryPostDto {

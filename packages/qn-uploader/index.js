@@ -7,7 +7,7 @@ module.exports = exports = class QnUploader {
     const { ak, sk, bucket, prefix = "", zone, delBeforeUpload } = Object.assign(
       {
         zone: qiniu.zone.Zone_z2,
-        delBeforeUpload: false,
+        delBeforeUpload: false
       },
       options
     );
@@ -54,11 +54,11 @@ module.exports = exports = class QnUploader {
       console.log("file", files);
 
       if (err) throw err;
-      files.forEach((file) =>
+      files.forEach(file =>
         this.uploadOne({
           filename: file,
           content: path.join(dir, file),
-          type: "file",
+          type: "file"
         })
       );
     });
@@ -104,7 +104,7 @@ module.exports = exports = class QnUploader {
     const { prefix, bucket, bucketManager } = this;
     const options = {
       limit: 1000,
-      prefix,
+      prefix
     };
     return new Promise((resolve, reject) => {
       bucketManager.listPrefix(bucket, options, (err, body, info) => {
@@ -137,7 +137,7 @@ module.exports = exports = class QnUploader {
   }
   deleteAll(files = []) {
     const { bucketManager, bucket } = this;
-    const deleteOperations = files.map((file) => qiniu.rs.deleteOp(bucket, file));
+    const deleteOperations = files.map(file => qiniu.rs.deleteOp(bucket, file));
     return new Promise((resolve, reject) => {
       bucketManager.batch(deleteOperations, (err, body, info) => {
         if (err) {
@@ -147,7 +147,7 @@ module.exports = exports = class QnUploader {
         } else {
           // 200 is success, 298 is part success
           if (parseInt(info.statusCode / 100) == 2) {
-            body.forEach((item) => {
+            body.forEach(item => {
               if (item.code == 200) {
                 console.log(item.code + "\tsuccess");
               } else {
@@ -165,5 +165,3 @@ module.exports = exports = class QnUploader {
     });
   }
 };
-
-module.exports.a = 1;

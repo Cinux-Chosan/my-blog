@@ -38,6 +38,17 @@
         v-model="post.tags"
       />
     </v-col>
+    <!-- 辅助 -->
+    <v-col :cols="10" :offset="1">
+      <v-row>
+        <v-col :cols="6">
+          <v-textarea outlined label="附加 JavaScript" v-model="post.script" />
+        </v-col>
+        <v-col :cols="6">
+          <v-textarea outlined label="附加 CSS" v-model="post.css" />
+        </v-col>
+      </v-row>
+    </v-col>
     <!-- 浮动按钮区 -->
     <dial @save="save" @del="del" @extra="openDialog" />
     <!-- 更多设置区 -->

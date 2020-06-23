@@ -17,6 +17,7 @@ import {
   postType,
 } from './dto/create-post-dto';
 import { AuthGuard } from 'src/guards/auth.guard';
+import compiler from 'compiler';
 
 @Controller('posts')
 export class PostController {
@@ -39,6 +40,12 @@ export class PostController {
     @Body() postDto: CreatePostDto | UpdatePostDto,
   ) {
     const { postService } = this;
+    const { script } = postDto;
+    if (script) {
+      // 编译脚本
+      const { code: scriptCompiled } = compiler.blog(script);
+      postDto.scriptCompiled = scriptCompiled;
+    }
     if (id) {
       await postService.update(id, postDto);
     } else {

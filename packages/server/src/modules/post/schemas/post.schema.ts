@@ -41,6 +41,12 @@ export class Post extends Document {
   @Prop()
   banners: string[];
 
+  @Prop()
+  script: string;
+
+  @Prop()
+  scriptCompiled: string;
+
   // 创建时间
   @Prop({})
   createdAt: Date;
@@ -51,3 +57,10 @@ export class Post extends Document {
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
+
+export function preSaveHook() {
+  const { createdAt } = this;
+  if (!createdAt) {
+    this.createdAt = new Date();
+  }
+}
