@@ -41,6 +41,8 @@ import Vue from 'vue'
 import { mapState, mapGetters } from 'vuex'
 import { createNavByHtml, traverse } from '@utils'
 
+const tuiEditorContentClass = '.tui-editor-contents'
+
 export default Vue.extend({
   // for SEO
   head() {
@@ -66,7 +68,7 @@ export default Vue.extend({
     }
   },
   mounted() {
-    this.postNav = createNavByHtml('.tui-editor-contents')
+    this.postNav = createNavByHtml(tuiEditorContentClass)
   },
 
   async asyncData({ params, query, app, store }) {
@@ -109,11 +111,16 @@ export default Vue.extend({
         }
       })
     },
+
     initScript() {
-      const { post, initCommonScript } = this
+      const { post, initCommonScript, initLinkBlank } = this
       initCommonScript()
+      initLinkBlank()
       eval(`!function(){${post.scriptCompiled}}()`)
     },
+    /**
+     * 初始化一些通用逻辑
+     */
     initCommonScript() {
       const activators = document.querySelectorAll('.J-act')
       Array.from(activators).forEach(act => {
@@ -126,6 +133,15 @@ export default Vue.extend({
           })
         })
       })
+    },
+    /**
+     * 初始化 markdown 中的链接，添加 target="_blank"
+     */
+    initLinkBlank() {
+      const links = document
+        .querySelector(tuiEditorContentClass)
+        .querySelectorAll('a')
+      Array.from(links).forEach(link => (link.target = '_blank'))
     }
   }
 })

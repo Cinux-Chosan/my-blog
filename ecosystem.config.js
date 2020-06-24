@@ -45,7 +45,7 @@ module.exports = {
         && yarn server:build \
         && pm2 restart ecosystem.config.js \
         && echo 服务启动成功! \
-        && git commit -am dep \
+        && git commit -am deploy \
         && echo ${"-".repeat(20)} post-deploy end ${"-".repeat(20)}\
         `,
     },
