@@ -95,6 +95,8 @@ export default {
       const { collapse, searchText, $router, $route } = this
       if (collapse) {
         this.collapse = false
+      } else {
+        this.collapse = !searchText
       }
       $router.push({
         query: { ...$route.query, contentChunk: searchText }
