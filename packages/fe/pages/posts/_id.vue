@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col :cols="12" :sm="8" order="last" order-sm="first">
+    <v-col :cols="12" :sm="8" order="5" order-sm="1">
       <client-only>
         <template #placeholder>
           <!-- for SEO & Preview-->
@@ -19,8 +19,8 @@
     <v-col
       :cols="12"
       :sm="4"
-      order="first"
-      order-sm="last"
+      order="1"
+      order-sm="5"
       :class="mdAndUp && flattenedNav.length <= 10 ? 'fixedNav' : ''"
     >
       <v-treeview
@@ -37,7 +37,7 @@
       <!-- @update:open="goToElement" -->
     </v-col>
 
-    <v-col :cols="12">
+    <v-col :cols="12" order="10">
       <Vssue title="Vssue Demo" />
     </v-col>
   </v-row>
