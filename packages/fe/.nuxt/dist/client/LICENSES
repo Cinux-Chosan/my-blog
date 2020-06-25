@@ -12,6 +12,13 @@
  */
 
 /*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+/*!
  * TOAST UI Color Picker
  * @version 2.2.6
  * @author NHN FE Development Team <dl_javascript@nhn.com>
@@ -70,8 +77,23 @@
  */
 
 /*!
+ * vssue - A vue-powered issue-based comment plugin
+ *
+ * @version v1.4.6
+ * @link https://vssue.js.org
+ * @license MIT
+ * @copyright 2018-2020 meteorlxy
+ */
+
+/*!
  * vue-client-only v2.0.0
  * (c) 2019-present egoist <0x142857@gmail.com>
+ * Released under the MIT License.
+ */
+
+/*!
+ * vue-i18n v8.18.2 
+ * (c) 2020 kazuya kawaguchi
  * Released under the MIT License.
  */
 
@@ -103,6 +125,12 @@ and limitations under the License.
 ***************************************************************************** */
 
 /*! http://mths.be/fromcodepoint v0.2.1 by @mathias */
+
+/**
+  * vue-class-component v7.2.3
+  * (c) 2015-present Evan You
+  * @license MIT
+  */
 
 // @license RGB <-> HSV conversion utilities based off of http://www.cs.rit.edu/~ncs/color/t_convert.html
 

@@ -21,7 +21,7 @@ import compiler from 'compiler';
 
 @Controller('posts')
 export class PostController {
-  constructor(private postService: PostService) {}
+  constructor(private postService: PostService) { }
 
   @Get('types')
   getPostType() {
@@ -41,11 +41,12 @@ export class PostController {
   ) {
     const { postService } = this;
     const { script } = postDto;
+    let scriptCompiled = '';
     if (script) {
-      // 编译脚本
-      const { code: scriptCompiled } = compiler.blog(script);
-      postDto.scriptCompiled = scriptCompiled;
+      // 编译附加 js 脚本
+      scriptCompiled = compiler.blog(script).code;
     }
+    postDto.scriptCompiled = scriptCompiled;
     if (id) {
       await postService.update(id, postDto);
     } else {

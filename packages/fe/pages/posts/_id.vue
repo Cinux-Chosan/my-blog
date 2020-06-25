@@ -1,17 +1,20 @@
 <template>
   <v-row>
     <v-col :cols="12" :sm="8" order="last" order-sm="first">
-      <viewer
-        :initialValue="post.content"
-        :options="editorOptions"
-        @load="initScript"
-        v-if="showViewer"
-      >
-        <!-- for SEO -->
-        <section class="d-none">
-          <article v-html="post.html"></article>
-        </section>
-      </viewer>
+      <client-only>
+        <template #placeholder>
+          <!-- for SEO & Preview-->
+          <section class>
+            <article v-html="post.html"></article>
+          </section>
+        </template>
+        <viewer
+          :initialValue="post.content"
+          :options="editorOptions"
+          @load="initScript"
+          v-if="showViewer"
+        ></viewer>
+      </client-only>
     </v-col>
     <v-col
       :cols="12"
@@ -32,6 +35,10 @@
       />
       <!-- :open="isSmall && flattenedNav.map(nav => nav.id)" -->
       <!-- @update:open="goToElement" -->
+    </v-col>
+
+    <v-col :cols="12">
+      <Vssue title="Vssue Demo" />
     </v-col>
   </v-row>
 </template>

@@ -53,7 +53,8 @@ export default {
    */
   plugins: [
     '~/plugins/axios',
-    { src: '~/plugins/toastUi.client', ssr: false, mode: 'client' }
+    { src: '~/plugins/toastUi.client', ssr: false, mode: 'client' },
+    { src: '~/plugins/vssue.client', ssr: false, mode: 'client' }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -137,6 +138,7 @@ export default {
   build: {
     extractCSS: true,
     publicPath: new URL(publicPathPrefix, publicPathUrl).toString(),
+    transpile: ['(@vssue|vssue)/((?!/node_modules/).)*.js$'],
     /*
      ** You can extend webpack config here
      */
