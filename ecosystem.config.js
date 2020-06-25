@@ -35,7 +35,7 @@ module.exports = {
       ssh_options: "StrictHostKeyChecking=no",
       repo: "git@github.com:Cinux-Chosan/my-blog.git",
       path: "/var/www/my-blog",
-
+      'pre-deploy-local':'git add . && git commit -am deploy && git push',
       "pre-deploy": `echo ${"-".repeat(20)} pre-deploy begin ${"-".repeat(20)}\
         && git fetch && git reset --hard origin/master\
         && echo ${"-".repeat(20)} pre-deploy end ${"-".repeat(20)}\
