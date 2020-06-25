@@ -38,7 +38,9 @@
     </v-col>
 
     <v-col :cols="12" order="10">
-      <Vssue title="Vssue Demo" />
+      <client-only>
+        <Vssue :title="`${post._id}`" />
+      </client-only>
     </v-col>
   </v-row>
 </template>
