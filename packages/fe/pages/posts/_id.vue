@@ -39,7 +39,7 @@
         <!-- @update:open="goToElement" -->
       </v-col>
 
-      <v-col :cols="12" order="10">
+      <v-col :cols="12" :sm="8" order="10">
         <client-only>
           <Vssue :title="`${post._id}`" />
         </client-only>
