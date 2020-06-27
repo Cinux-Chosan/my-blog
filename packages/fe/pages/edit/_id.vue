@@ -23,6 +23,14 @@
             v-model="post.summary"
           />
         </v-col>
+        <v-col :cols="8">
+          <v-select
+            hide-details
+            :items="typeList"
+            v-model="post.type"
+            label="文章状态"
+          ></v-select>
+        </v-col>
       </v-row>
     </v-col>
     <!-- 核心功能编辑区 -->

@@ -3,6 +3,7 @@ import { CreateTagDto } from '../../tags/dto/create-tag-dto';
 export enum postStatus {
   deleted,
   activated,
+  pending
 }
 
 export enum postType {
