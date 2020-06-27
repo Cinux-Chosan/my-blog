@@ -4,32 +4,17 @@
     <v-col class="commonArea" :cols="10" :offset="1">
       <v-row>
         <v-col :cols="4">
-          <v-select
-            hide-details
-            :items="typeList"
-            v-model="post.type"
-            label="文章类型"
-          ></v-select>
+          <v-select hide-details :items="typeList" v-model="post.type" label="文章类型"></v-select>
         </v-col>
         <v-col :cols="8" class>
           <v-text-field label="输入标题" v-model="post.title" hide-details />
         </v-col>
 
         <v-col :cols="4">
-          <v-textarea
-            counter="150"
-            outlined
-            label="文章概要"
-            v-model="post.summary"
-          />
+          <v-textarea counter="150" outlined label="文章概要" v-model="post.summary" />
         </v-col>
         <v-col :cols="8">
-          <v-select
-            hide-details
-            :items="typeList"
-            v-model="post.type"
-            label="文章状态"
-          ></v-select>
+          <v-select hide-details :items="postStatus" v-model="post.status" label="文章状态"></v-select>
         </v-col>
       </v-row>
     </v-col>
@@ -39,12 +24,7 @@
     </v-col>
     <!-- 标签区 -->
     <v-col :cols="10" :offset="1">
-      <tag-selector
-        @add="addTag"
-        @del="delTag"
-        :tags="tags"
-        v-model="post.tags"
-      />
+      <tag-selector @add="addTag" @del="delTag" :tags="tags" v-model="post.tags" />
     </v-col>
     <!-- 辅助 -->
     <v-col :cols="10" :offset="1">
@@ -73,6 +53,13 @@ import { mapActions, mapState } from 'vuex'
 import Post from '@/components/edit/post'
 import Topic from '@/components/edit/topic'
 import TopicPost from '@/components/edit/topicPost'
+
+const postStatus = [
+  { text: 'activated', value: 1 },
+  { text: 'pending', value: 2 },
+  { text: 'deleted', value: 0 }
+]
+
 export default Vue.extend({
   layout: 'edit',
   components: {
@@ -114,6 +101,7 @@ export default Vue.extend({
         minHeight: '500px',
         ...editorOptions
       },
+      postStatus,
       post: {
         tags: [],
         title: '',

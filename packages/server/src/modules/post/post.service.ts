@@ -30,7 +30,8 @@ export class PostService {
    * @param status 文章状态，默认查询未删除状态的文章
    */
   async find(id?: string, query?: any) {
-    const queryObj = { status: postStatus.activated } as any;
+    const { activated, pending } = postStatus
+    const queryObj = { status: { $in: [activated, pending] } } as any;
     const { page = 1, limit = 10 } = query;
     // 匹配 id
     id && (queryObj._id = id)

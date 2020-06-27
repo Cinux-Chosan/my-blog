@@ -1,48 +1,51 @@
 <template>
-  <v-row>
-    <v-col :cols="12" :sm="8" order="5" order-sm="1">
-      <client-only>
-        <template #placeholder>
-          <!-- for SEO & Preview-->
-          <section class>
-            <article v-html="post.html"></article>
-          </section>
-        </template>
-        <viewer
-          :initialValue="post.content"
-          :options="editorOptions"
-          @load="initScript"
-          v-if="showViewer"
-        ></viewer>
-      </client-only>
-    </v-col>
-    <v-col
-      :cols="12"
-      :sm="4"
-      order="1"
-      order-sm="5"
-      :class="mdAndUp && flattenedNav.length <= 10 ? 'fixedNav' : ''"
-    >
-      <v-treeview
-        activatable
-        :open-all="isOpenAll"
-        active-class="activeNav"
-        transition
-        :items="postNav"
-        item-text="text"
-        @update:active="goToElement"
-        v-if="flattenedNav.length"
-      />
-      <!-- :open="isSmall && flattenedNav.map(nav => nav.id)" -->
-      <!-- @update:open="goToElement" -->
-    </v-col>
+  <div>
+    <p v-if="post.status === 2" class="text-center">此文正在撰写中，请客官稍等...</p>
+    <v-row v-else>
+      <v-col :cols="12" :sm="8" order="5" order-sm="1">
+        <client-only>
+          <template #placeholder>
+            <!-- for SEO & Preview-->
+            <section class>
+              <article v-html="post.html"></article>
+            </section>
+          </template>
+          <viewer
+            :initialValue="post.content"
+            :options="editorOptions"
+            @load="onViewerLoaded"
+            v-if="showViewer"
+          ></viewer>
+        </client-only>
+      </v-col>
+      <v-col
+        :cols="12"
+        :sm="4"
+        order="1"
+        order-sm="5"
+        :class="mdAndUp && flattenedNav.length <= 10 ? 'fixedNav' : ''"
+      >
+        <v-treeview
+          activatable
+          :open-all="isOpenAll"
+          active-class="activeNav"
+          transition
+          :items="postNav"
+          item-text="text"
+          @update:active="goToElement"
+          v-if="flattenedNav.length"
+        />
+        <!-- :open="isSmall && flattenedNav.map(nav => nav.id)" -->
+        <!-- @update:open="goToElement" -->
+      </v-col>
 
-    <v-col :cols="12" order="10">
-      <client-only>
-        <Vssue :title="`${post._id}`" />
-      </client-only>
-    </v-col>
-  </v-row>
+      <v-col :cols="12" order="10">
+        <client-only>
+          <Vssue :title="`${post._id}`" />
+        </client-only>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
@@ -76,9 +79,7 @@ export default Vue.extend({
       showViewer: true
     }
   },
-  mounted() {
-    this.postNav = createNavByHtml(tuiEditorContentClass)
-  },
+  mounted() {},
 
   async asyncData({ params, query, app, store }) {
     const { id } = params
@@ -119,6 +120,11 @@ export default Vue.extend({
           el.classList.remove('activeTitle')
         }
       })
+    },
+
+    onViewerLoaded() {
+      this.postNav = createNavByHtml(tuiEditorContentClass)
+      this.initScript()
     },
 
     initScript() {
