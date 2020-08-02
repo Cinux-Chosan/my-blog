@@ -6,6 +6,7 @@ import scrollBehavior from './router.scrollBehavior.js'
 const _72f8c000 = () => interopDefault(import('../pages/posts.vue' /* webpackChunkName: "pages/posts" */))
 const _ddcfb2fa = () => interopDefault(import('../pages/posts/index.vue' /* webpackChunkName: "pages/posts/index" */))
 const _2e73edab = () => interopDefault(import('../pages/posts/_id.vue' /* webpackChunkName: "pages/posts/_id" */))
+const _80d662b0 = () => interopDefault(import('../pages/auth/login/index.vue' /* webpackChunkName: "pages/auth/login/index" */))
 const _7b0fd118 = () => interopDefault(import('../pages/edit/_id.vue' /* webpackChunkName: "pages/edit/_id" */))
 const _1df3b57f = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
@@ -37,6 +38,10 @@ export const routerOptions = {
       component: _2e73edab,
       name: "posts-id"
     }]
+  }, {
+    path: "/auth/login",
+    component: _80d662b0,
+    name: "auth-login"
   }, {
     path: "/edit/:id?",
     component: _7b0fd118,

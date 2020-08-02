@@ -7,6 +7,7 @@ import { TagsModule } from './modules/tags/tag.module';
 import { UserModule } from './modules/user/user.module';
 import { SitemapModule } from './modules/sitemap/sitemap.module';
 import { UploadModule } from './modules/upload/upload.module';
+import { AuthModule } from './modules/auth/auth.module';
 import * as globalConfig from '../../../config/global.config';
 import * as cert from '../../../config/cert';
 
@@ -19,6 +20,7 @@ import * as cert from '../../../config/cert';
     UserModule,
     SitemapModule,
     UploadModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [

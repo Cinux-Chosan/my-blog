@@ -147,8 +147,3 @@ export default Vue.extend({
   }
 })
 </script>
-
-<style scoped>
-.commonArea {
-}
-</style>
