@@ -6,6 +6,7 @@ import {
   Body,
   Delete,
   UseGuards,
+  Request,
   Query,
 } from '@nestjs/common';
 import { PostService } from './post.service';
@@ -16,7 +17,7 @@ import {
   postStatus,
   postType,
 } from './dto/create-post-dto';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard'
 import compiler from 'compiler';
 
 @Controller('posts')
@@ -33,7 +34,8 @@ export class PostController {
     return this.postService.find(id, query);
   }
 
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post(':id?')
   async savePost(
     @Param('id') id: string,
@@ -55,7 +57,7 @@ export class PostController {
     return id;
   }
 
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async delPost(@Param('id') id: string) {
     const { postService } = this;

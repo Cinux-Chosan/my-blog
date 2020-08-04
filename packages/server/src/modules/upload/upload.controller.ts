@@ -8,8 +8,10 @@ import {
   Get,
   Redirect,
   Request,
+  UseGuards,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
 import * as QnUplaoder from 'qn-uploader';
 import * as path from 'path';
 import * as fsExtra from 'fs-extra';
@@ -23,6 +25,7 @@ export class UploadController {
     @Inject('CERT') private cert: any,
   ) { }
 
+  @UseGuards(JwtAuthGuard)
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
   async ploadFile(@UploadedFile('file') file, @Query('dest') dest = '') {

@@ -30,6 +30,7 @@
     "@nestjs/passport": "^7.1.0",
     "@nestjs/platform-express": "^7.0.0",
     "@types/fs-extra": "^9.0.1",
+    "cookie-parser": "^1.4.5",
     "fs-extra": "^9.0.1",
     "mongoose": "^5.9.17",
     "passport": "^0.4.1",

@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Param, Delete, UseGuards } from '@nestjs/common';
 import { TagService } from './tag.service';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { JwtAuthGuard } from 'src/modules/auth/jwt-auth.guard';
 
 @Controller('tags')
 export class TagController {
@@ -12,14 +12,14 @@ export class TagController {
     return tags;
   }
 
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post(':text?')
   async upsertTag(@Param('text') text: string) {
     const { tagService } = this;
     return tagService.upsert({ text }, { text });
   }
   
-  @UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Delete(':text')
   async deleteTag(@Param('text') text: string) {
     const { tagService } = this;
