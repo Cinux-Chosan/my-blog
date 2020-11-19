@@ -28,7 +28,7 @@ module.exports = {
   deploy: {
     production: {
       key: "~/.ssh/tencent_cloud",
-      port: "12345",
+      port: "9381",
       user: "root",
       host: "chosan.cn",
       ref: "origin/master",
