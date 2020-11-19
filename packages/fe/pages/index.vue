@@ -20,10 +20,13 @@ import Vue from 'vue'
 
 export default Vue.extend({
   layout: 'home',
+  beforeCreate() {
+    this.$router.replace({ path: '/posts?page=1' })
+  },
   data() {
     return {
       motto: '',
-      author: ''
+      author: '',
     }
   },
   mounted() {
@@ -47,8 +50,8 @@ export default Vue.extend({
         }
       }
       setTimeout(this.fetchMotto, 15000)
-    }
-  }
+    },
+  },
 })
 </script>
 

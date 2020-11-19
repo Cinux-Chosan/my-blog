@@ -12,10 +12,4 @@ export class AuthController {
     res.cookie('jwt', result.access_token)
     res.json(result)
   }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
-  }
 }
